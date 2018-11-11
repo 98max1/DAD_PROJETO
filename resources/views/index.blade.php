@@ -66,7 +66,7 @@
                                     </div>
                                 @endif
 
-                                You are logged in!
+                                SPA
                             </div>
                         </div>
                     </div>
