@@ -16,10 +16,13 @@ Vue.use(VueRouter);
 const userListComponent = Vue.component('user-list',require('./components/userList.vue'));
 
 const users = Vue.component('users',require('./components/users.vue'));
+
+const registerWorker = Vue.component('register',require('./components/registerWorker.vue'));
 const routes=[
     {path:'/',redirect:'/users' },
     {path:'/users',component:users},
-    {path:'/list',component:userListComponent}
+    {path:'/list',component:userListComponent},
+    {path:'/register',component:registerWorker}
     ];
 const router = new VueRouter({
     routes 

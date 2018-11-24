@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('title', 'Vue.js App')
+@section('title', 'Restaurant Manager')
 
 @section('content')
 
@@ -39,10 +39,13 @@
             Antonio
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Settings</a>
-            <a class="dropdown-item" href="#">Change password</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Logout</a>
+              @isAdmin()
+                <router-link to="/register">Register Worker</router-link>
+              @endisAdmin
+              <a class="dropdown-item" href="#">Settings</a>
+              <a class="dropdown-item" href="#">Change password</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Logout</a>
             </div>
         </li>
         </ul>

@@ -17,10 +17,12 @@ class User extends Resource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'username' => $this->username,
             'email' => $this->email,
-            'age' => $this->age,
-            'department_id' => $this->department_id,
-            'department' => $this->department->name,
+            'password' => $this->password,
+            'type' => $this->type,
+            'blocked' => $this->blocked,
+            'shift_active' => $this->shift_active
         ];
     }
 }
