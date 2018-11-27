@@ -19,8 +19,9 @@
             return { 
                 profileUser: {
                     email:"",
-                    age:"",
+                    id:"",
                     name:"",
+                    type:"",
                 },
                 successMessage: "",
                 showSuccess: false
@@ -29,6 +30,7 @@
         methods: {
             getInformationFromLoggedUser() {
                 this.profileUser = this.$store.state.user;
+                console.log(this.profileUser);
             },
             savedUser: function(){
                 this.showSuccess = true;

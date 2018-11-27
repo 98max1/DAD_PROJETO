@@ -41,7 +41,10 @@ const router = new VueRouter({
 
  router.beforeEach((to, from, next) => {
     if ((to.name == 'profile') || (to.name == 'logout')) {
+        store.commit('loadTokenAndUserFromSession');
+        
         if (!store.state.user) {
+            console.log(store.state.user);
             next("/login");
             return;
         }

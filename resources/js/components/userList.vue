@@ -2,22 +2,26 @@
 	<table class="table table-striped">
     	<thead>
 	        <tr>
+	            <th>ID</th>
 	            <th>Name</th>
+	            <th>Username</th>
 	            <th>Email</th>
-	            <th>Age</th>
-	            <th>Department</th>
+	            <th>Type</th>
+	            <th>Blocked</th>
 	            <th>Actions</th>
 	        </tr>
 	    </thead>
 	    <tbody>
 	        <tr v-for="(user,index) in users" :key ="user.id">
+	            <td>{{user.id}}</td>
 	            <td>{{user.name}}</td>
+	            <td>{{user.username}}</td>
 	            <td>{{user.email}}</td>
-	            <td>{{user.age}}</td>
-	            <td>{{user.department}}</td>
+	            <td>{{user.type}}</td>
+	            <td>{{user.blocked}}</td>
 	            <td>
-	                <button @click.prevent="editUser(user)">EDIT</button>
-	                <button v-on:click.prevent="deleteUser(user,index)">DELETE</button>
+	                <button class="btn-primary" @click.prevent="editUser(user)">EDIT</button>
+	                <button class="btn-danger" v-on:click.prevent="deleteUser(user,index)">DELETE</button>
 	            </td>
 	        </tr>   
 	    </tbody>

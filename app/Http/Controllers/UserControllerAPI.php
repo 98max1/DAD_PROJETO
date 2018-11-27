@@ -38,17 +38,19 @@ class UserControllerAPI extends Controller
     public function store(Request $request)
     {
         $request->validate([
-                'name' => 'required|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
+                'name' => 'required|min:3',//|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
+                'username' => 'min:3',
                 'email' => 'required|email|unique:users,email',
-                'age' => 'integer|between:18,75',
-                'password' => 'min:3'
+                'password' => 'required|min:3',
+                'type' => 'required',
+                'blocked' => 'required|integer|between:0,1'
             ]);
         $user = new User();
         $user->fill($request->all());
         $user->password = Hash::make($user->password);
         $user->save();
         return response()->json(new UserResource($user), 201);
-    }
+    }              
 
     public function update(Request $request, $id)
     {

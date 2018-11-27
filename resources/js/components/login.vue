@@ -21,6 +21,7 @@
             </div>
             <div class="form-group">
                 <a class="btn btn-primary" v-on:click.prevent="login">Login</a>
+                <a class="btn btn-danger" v-on:click.prevent="login">Reset Password</a>
             </div>
         </div>
     </div>
