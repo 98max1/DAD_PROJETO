@@ -11,27 +11,55 @@ require('./bootstrap');
 window.Vue = require('vue');
 //const VueRouter = require('vue-router');
 import VueRouter from 'vue-router';
+//import {store} from './store';
+import store from './stores/global-store';
 
 Vue.use(VueRouter);
+
 const userListComponent = Vue.component('user-list',require('./components/userList.vue'));
 
-const users = Vue.component('users',require('./components/users.vue'));
-
+const user = Vue.component('user',require('./components/user.vue'));
+const profile = Vue.component('profile', require('./components/profile.vue'));
 const login = Vue.component('login',require('./components/login.vue'));
+const logout = Vue.component('logout',require('./components/logout.vue'));
+const register = Vue.component('register',require('./components/register.vue'));
 
-const registerWorker = Vue.component('register',require('./components/registerWorker.vue'));
+
 const routes=[
-    {path:'/',redirect:'/users' },
-    {path:'/users',component:users},
-    {path:'/list',component:userListComponent},
-    {path:'/login',component:login},
-    {path:'/register',component:registerWorker}
+    {path:'/',redirect:'/users' ,name:'root'},
+    {path:'/users',component:user, name:'users'},
+    {path:'/list',component:userListComponent,name:'userList'},
+    {path:'/profile',component:profile,name:'profile'},
+    {path:'/login',component:login,name:'login'},
+    {path:'/logout',component:logout,name:'logout'},
+    {path:'/register',component:register,name:'register'}
     ];
 const router = new VueRouter({
     routes 
     //routes:routes 
 })
-const app = new Vue({
-    el: '#app',
-    router
+
+ router.beforeEach((to, from, next) => {
+    if ((to.name == 'profile') || (to.name == 'logout')) {
+        if (!store.state.user) {
+            next("/login");
+            return;
+        }
+    }
+    next();
 });
+
+const app = new Vue({
+   // el: '#app',
+    //store:store,
+    router,
+    store,
+    created(){
+       /* console.log('--------------------');
+        console.log(this.$store.state.user);*/
+        this.$store.commit('loadTokenAndUserFromSession');
+        //console.log(this.$store.state.user);
+    }
+
+}).$mount('#app');
+
