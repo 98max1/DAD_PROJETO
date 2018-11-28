@@ -12,7 +12,7 @@
 	        </tr>
 	    </thead>
 	    <tbody>
-	        <tr v-for="(user,index) in users" :key ="user.id">
+	        <tr v-for="user in users" :key ="user.id" :class="{activerow: editingUser === user}">
 	            <td>{{user.id}}</td>
 	            <td>{{user.name}}</td>
 	            <td>{{user.username}}</td>
@@ -21,7 +21,7 @@
 	            <td>{{user.blocked}}</td>
 	            <td>
 	                <button class="btn-primary" @click.prevent="editUser(user)">EDIT</button>
-	                <button class="btn-danger" v-on:click.prevent="deleteUser(user,index)">DELETE</button>
+	                <button class="btn-danger" v-on:click.prevent="deleteUser(user)">DELETE</button>
 	            </td>
 	        </tr>   
 	    </tbody>
@@ -34,15 +34,18 @@
 	props:["users"],
 		data: function(){
 			return{
-
+				editingUser: null
 			}
 		},
 		methods:{
-			editUser: function(user,index){
-				this.$emit('edit-user',user,index);
+			editUser: function(user){
+				this.editingUser=user;			
+				this.$emit('edit-click',user);
 			},
-			deleteUser: function(user,index){
-				this.$emit('delete-user',user,index);
+			deleteUser: function(user){
+				this.editingUser=null;
+				console.log(user.id+"!##!!#!#!#!##!#!##")
+				this.$emit('delete-click',user);
 
 			}	
 		}

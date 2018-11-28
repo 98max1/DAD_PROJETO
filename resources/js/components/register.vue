@@ -1,41 +1,12 @@
-<!--  
-<template v-if="isLoggedIn">
-	<div id="register">
-        <h1>Register Worker</h1>
-        <p>
-        	NAME
-        	<input type="text" name="name" v-model="name" placeholder="Name" />
-        </p>
-        <p>
-        	USERNAME
-        	<input type="text" name="username" v-model="username" placeholder="Username" />
-        </p>
-        <p>
-        	EMAIL
-        	<input type="text" name="email" v-model="email" placeholder="Email" />
-        </p>
-        <p>
-        	PASSWORD
-        	<input type="password" name="password" v-model="password" placeholder="Password" />
-        </p>
-        <p>
-        	TYPE
-        	<input type="text" name="type" v-model="type" placeholder="type" />
-        </p>
-        <p>
-        	BLOCKED STATUS
-        	<input type="text" name="blocked" v-model="blocked" placeholder="blocked" />
-        </p>
-        <p>
-        	PHOTO
-        	<input type="text" name="photo" v-model="photo_url" placeholder="Photo" />
-        </p>
-        <button type="button" v-on:click="register" value="submit">Submit</button>
-	</div>
-</template>-->
+
 <template>
 	<div class="jumbotron">
 	    <h2>Register Worker</h2>
+
+        <div class="alert" :class="typeofmsg" v-if="showMessage">             
+            <button type="button" class="close-btn" v-on:click="showMessage=false">&times;</button>
+            <strong>{{ message }}</strong>
+        </div>
 	    <div class="form-group">
 	        <label for="inputName">Name: </label>
 	        <input
@@ -102,24 +73,28 @@
 				        password:"",
 				        type:"",
 				        blocked:"",
-						//success:""
-		 			}
+		 			},
+                typeofmsg: "alert-success",
+                showMessage: false,
+                message: "",
 			    }
 			},
 		    methods: {
 		        register: function(){
-		            axios.post('api/users',this.user)
-	                .then(response=>{
-	                	// Copy object properties from response.data.data to this.user
-	                	// without creating a new reference
-	                	Object.assign(this.user, response.data.data);
-	                	//this.$emit('user-saved', this.user)
-	                }).catch(error=>{
-	                	console.log(error);
-	                });
-		        },
-		        lolao: function(){
-		        	console.log(this.user);
+			    	this.showMessage = false;
+	            	axios.post('api/users',this.user)
+		                .then(response=>{
+		                	Object.assign(this.user, response.data.data);
+		                	this.typeofmsg = "alert-success";
+	                        this.message = "Worker resgistered correctly.";
+	                        this.showMessage = true;
+		                	//this.$emit('user-saved', this.user)
+		                }).catch(error=>{
+	                        this.typeofmsg = "alert-danger";
+	                        this.message = "Error registering worker.";
+	                        this.showMessage = true;
+	                        console.log(error);
+		                });
 		        }
 
 		    },

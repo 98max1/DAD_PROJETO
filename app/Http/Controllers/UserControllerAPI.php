@@ -39,10 +39,10 @@ class UserControllerAPI extends Controller
     {
         $request->validate([
                 'name' => 'required|min:3',//|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
-                'username' => 'min:3',
+                'username' => 'required|min:3',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|min:3',
-                'type' => 'required',
+                'type' => 'required|min:3',
                 'blocked' => 'required|integer|between:0,1'
             ]);
         $user = new User();

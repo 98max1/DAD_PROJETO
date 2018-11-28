@@ -31,13 +31,14 @@
 	        <label>Type</label>
 	        <label type="text" class="form-control" name="type" placeholder="Type"> {{user.type}}</label>
 	    </div>
-	    <!--  <div class="form-group">
-	        <label for="department_id">Department:</label>
-	        <select class="form-control" id="department_id" name="department_id" v-model="user.department_id" >
-	            <option v-for="department in departments" v-bind:value="department.id"> {{ department.name }} </option>
-	        </select>
-	    </div>-->
 
+	    <div class="form-group">
+	        <label>Change Password</label>
+	        <input
+	            type="password" class="form-control"
+	            name="password" id="inputPassword"
+	            placeholder="New Password"/>
+	    </div>
 	    <div class="form-group">
 	        <a class="btn btn-primary" v-on:click.prevent="saveUser()">Save</a>
 	        <a class="btn btn-light" v-on:click.prevent="cancelEdit()">Cancel</a>

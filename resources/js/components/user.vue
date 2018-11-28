@@ -10,7 +10,7 @@
             <button type="button" class="close-btn" v-on:click="showSuccess=false">&times;</button>
             <strong>{{ successMessage }}</strong>
         </div>
-        <user-edit :user="currentUser" @user-saved="savedUser" @user-canceled="cancelEdit" v-if="currentUser"></user-edit>                
+        <user-edit v-show ="this.$store.state.user.type=='manager'" :user="currentUser" @user-saved="savedUser" @user-canceled="cancelEdit" v-if="currentUser"></user-edit>                
     </div>              
 </template>
 
@@ -34,12 +34,18 @@
                 this.showSuccess = false;
             },
             deleteUser: function(user){
-                axios.delete('api/users/'+user.id)
+                       // console.log("#####################");
+                axios.delete('api/users/'+this.currentUser.id)
                     .then(response => {
                         this.showSuccess = true;
                         this.successMessage = 'User Deleted';
                         this.getUsers();
-                    });
+                        this.currentUser=null;
+                        console.log(response);
+                        console.log("#####################");
+                    }).catch(error=>{
+                        console.log(error);
+                    })
             },
             savedUser: function(){
                 this.currentUser = null;

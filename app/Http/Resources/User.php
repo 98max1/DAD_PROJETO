@@ -18,7 +18,7 @@ class User extends Resource
             'password' => $this->password,
             'type' => $this->type,
             'blocked' => $this->blocked,
-            'shift_active' => $this->shift_active
+            'shift_status' => $this->shift_status
         ];
     }
 }

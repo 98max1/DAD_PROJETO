@@ -51420,7 +51420,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -51497,14 +51497,19 @@ module.exports = function listToStyles (parentId, list) {
 module.exports = {
 	props: ["users"],
 	data: function data() {
-		return {};
+		return {
+			editingUser: null
+		};
 	},
 	methods: {
-		editUser: function editUser(user, index) {
-			this.$emit('edit-user', user, index);
+		editUser: function editUser(user) {
+			this.editingUser = user;
+			this.$emit('edit-click', user);
 		},
-		deleteUser: function deleteUser(user, index) {
-			this.$emit('delete-user', user, index);
+		deleteUser: function deleteUser(user) {
+			this.editingUser = null;
+			console.log(user.id + "!##!!#!#!#!##!#!##");
+			this.$emit('delete-click', user);
 		}
 	}
 };
@@ -51522,50 +51527,54 @@ var render = function() {
     _vm._v(" "),
     _c(
       "tbody",
-      _vm._l(_vm.users, function(user, index) {
-        return _c("tr", { key: user.id }, [
-          _c("td", [_vm._v(_vm._s(user.id))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(user.name))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(user.username))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(user.email))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(user.type))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(user.blocked))]),
-          _vm._v(" "),
-          _c("td", [
-            _c(
-              "button",
-              {
-                staticClass: "btn-primary",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    _vm.editUser(user)
-                  }
-                }
-              },
-              [_vm._v("EDIT")]
-            ),
+      _vm._l(_vm.users, function(user) {
+        return _c(
+          "tr",
+          { key: user.id, class: { activerow: _vm.editingUser === user } },
+          [
+            _c("td", [_vm._v(_vm._s(user.id))]),
             _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn-danger",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    _vm.deleteUser(user, index)
+            _c("td", [_vm._v(_vm._s(user.name))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(user.username))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(user.email))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(user.type))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(user.blocked))]),
+            _vm._v(" "),
+            _c("td", [
+              _c(
+                "button",
+                {
+                  staticClass: "btn-primary",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      _vm.editUser(user)
+                    }
                   }
-                }
-              },
-              [_vm._v("DELETE")]
-            )
-          ])
-        ])
+                },
+                [_vm._v("EDIT")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn-danger",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      _vm.deleteUser(user)
+                    }
+                  }
+                },
+                [_vm._v("DELETE")]
+              )
+            ])
+          ]
+        )
       })
     )
   ])
@@ -51742,10 +51751,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteUser: function deleteUser(user) {
             var _this = this;
 
-            axios.delete('api/users/' + user.id).then(function (response) {
+            // console.log("#####################");
+            axios.delete('api/users/' + this.currentUser.id).then(function (response) {
                 _this.showSuccess = true;
                 _this.successMessage = 'User Deleted';
                 _this.getUsers();
+                _this.currentUser = null;
+                console.log(response);
+                console.log("#####################");
+            }).catch(function (error) {
+                console.log(error);
             });
         },
         savedUser: function savedUser() {
@@ -51824,6 +51839,7 @@ exports.push([module.i, "\n.label[data-v-421b6f40]{\r\n\tcolor: red,\n}\r\n", ""
 /* 58 */
 /***/ (function(module, exports) {
 
+//
 //
 //
 //
@@ -52028,6 +52044,8 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
       _c(
         "a",
@@ -52059,7 +52077,26 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", [_vm._v("Change Password")]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "password",
+          name: "password",
+          id: "inputPassword",
+          placeholder: "New Password"
+        }
+      })
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -52116,6 +52153,14 @@ var render = function() {
       _vm._v(" "),
       _vm.currentUser
         ? _c("user-edit", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: this.$store.state.user.type == "manager",
+                expression: "this.$store.state.user.type=='manager'"
+              }
+            ],
             attrs: { user: _vm.currentUser },
             on: { "user-saved": _vm.savedUser, "user-canceled": _vm.cancelEdit }
           })
@@ -52829,7 +52874,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -52838,35 +52883,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /* 75 */
 /***/ (function(module, exports) {
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -52942,25 +52958,29 @@ module.exports = {
 				password: "",
 				type: "",
 				blocked: ""
-				//success:""
-			}
+			},
+			typeofmsg: "alert-success",
+			showMessage: false,
+			message: ""
 		};
 	},
 	methods: {
 		register: function register() {
 			var _this = this;
 
+			this.showMessage = false;
 			axios.post('api/users', this.user).then(function (response) {
-				// Copy object properties from response.data.data to this.user
-				// without creating a new reference
 				Object.assign(_this.user, response.data.data);
+				_this.typeofmsg = "alert-success";
+				_this.message = "Worker resgistered correctly.";
+				_this.showMessage = true;
 				//this.$emit('user-saved', this.user)
 			}).catch(function (error) {
+				_this.typeofmsg = "alert-danger";
+				_this.message = "Error registering worker.";
+				_this.showMessage = true;
 				console.log(error);
 			});
-		},
-		lolao: function lolao() {
-			console.log(this.user);
 		}
 
 	},
@@ -52977,6 +52997,26 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "jumbotron" }, [
     _c("h2", [_vm._v("Register Worker")]),
+    _vm._v(" "),
+    _vm.showMessage
+      ? _c("div", { staticClass: "alert", class: _vm.typeofmsg }, [
+          _c(
+            "button",
+            {
+              staticClass: "close-btn",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  _vm.showMessage = false
+                }
+              }
+            },
+            [_vm._v("×")]
+          ),
+          _vm._v(" "),
+          _c("strong", [_vm._v(_vm._s(_vm.message))])
+        ])
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
       _c("label", { attrs: { for: "inputName" } }, [_vm._v("Name: ")]),
