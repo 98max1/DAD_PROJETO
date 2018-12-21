@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-define('YOUR_SERVER_URL', 'http://restaurantmanager.dad/');
+define('YOUR_SERVER_URL', 'http://projeto.dad/');
 // Check "oauth_clients" table for next 2 values:
-define('CLIENT_ID', '8');
-define('CLIENT_SECRET','ZrOi94qeiSzw0KgtJ9CXo7wlzik5L19bmd3tnpci');
+define('CLIENT_ID', '2');
+define('CLIENT_SECRET','84S7sdVw1kfVDwA9fpu2BNpVnzMSb2gxDzNEGSyt');
 
 class LoginControllerAPI extends Controller
 {

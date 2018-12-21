@@ -20,9 +20,14 @@ const userListComponent = Vue.component('user-list',require('./components/userLi
 
 const user = Vue.component('user',require('./components/user.vue'));
 const profile = Vue.component('profile', require('./components/profile.vue'));
+const shift = Vue.component('shift',require('./components/shift.vue'));
+
 const login = Vue.component('login',require('./components/login.vue'));
 const logout = Vue.component('logout',require('./components/logout.vue'));
 const register = Vue.component('register',require('./components/register.vue'));
+
+
+
 
 
 const routes=[
@@ -30,6 +35,7 @@ const routes=[
     {path:'/users',component:user, name:'users'},
     {path:'/list',component:userListComponent,name:'userList'},
     {path:'/profile',component:profile,name:'profile'},
+    {path:'/shift',component:shift,name:'shift'},
     {path:'/login',component:login,name:'login'},
     {path:'/logout',component:logout,name:'logout'},
     {path:'/register',component:register,name:'register'}
