@@ -12,7 +12,7 @@ use App\User;
 use App\StoreUserRequest;
 use Hash;
 
-class UserControllerAPI extends Controller
+class ShiftControllerAPI extends Controller
 {
     public function index(Request $request)
     {
