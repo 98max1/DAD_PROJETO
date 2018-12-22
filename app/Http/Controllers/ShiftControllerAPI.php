@@ -16,12 +16,9 @@ class ShiftControllerAPI extends Controller
 {
     public function index(Request $request)
     {
-       $pessoas = User::paginate(15);
-       return ArticleResource::collection($article);
+        $pessoas = User::paginate(15);
+        return ArticleResource::collection($article);
 
-        $user = User::findOrFail($id);
-        $user->update($request->all());
-        return new UserResource($user);
         
 
         /*Caso não se pretenda fazer uso de Eloquent API Resources (https://laravel.com/docs/5.5/eloquent-resources), é possível implementar com esta abordagem:

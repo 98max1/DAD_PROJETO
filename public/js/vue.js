@@ -52388,6 +52388,8 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__showShif_vue__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__showShif_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__showShif_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Timer_vue__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Timer_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Timer_vue__);
 //
 //
 //
@@ -52403,7 +52405,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: {
-        'user-edit': __WEBPACK_IMPORTED_MODULE_0__showShif_vue___default.a
+        'user-edit': __WEBPACK_IMPORTED_MODULE_0__showShif_vue___default.a,
+        CountdownTimer: __WEBPACK_IMPORTED_MODULE_1__Timer_vue___default.a
     },
     data: function data() {
         return {
@@ -52517,15 +52520,41 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n.label[data-v-8385b6cc]{\r\n\tcolor: red,\n}\r\n", ""]);
+exports.push([module.i, "\n.label[data-v-8385b6cc]{\r\n\tcolor: red,\n}\nh2[data-v-8385b6cc] { \r\n  text-align: center;\n}\n.btn-danger .btn[data-v-8385b6cc]{\r\n\ttext-align: center;\n}\n#buttonLeave[data-v-8385b6cc]{\r\n\tcolor: white !important;\n}\ncaption[data-v-8385b6cc] {\r\n    caption-side: top;\r\n\t-ms-flex-line-pack: center;\r\n\t    align-content: center;\r\n\t-webkit-box-align: center;\r\n\t    -ms-flex-align: center;\r\n\t        align-items: center;\r\n\ttext-align: center;\r\n\tfont-size: 30px;\n}\r\n\r\n", ""]);
 
 // exports
 
 
 /***/ }),
 /* 69 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Timer_vue__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Timer_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Timer_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -52557,31 +52586,28 @@ exports.push([module.i, "\n.label[data-v-8385b6cc]{\r\n\tcolor: red,\n}\r\n", ""
 //
 //
 
-module.exports = {
-    props: ['user'],
-    methods: {
-        saveUser: function saveUser() {
-            var _this = this;
 
-            axios.put('api/users/' + this.user.id, this.user).then(function (response) {
-                // Copy object properties from response.data.data to this.user
-                // without creating a new reference
-                Object.assign(_this.user, response.data.data);
-                _this.$emit('user-saved', _this.user);
-            });
-        },
-        cancelEdit: function cancelEdit() {
-            var _this2 = this;
 
-            axios.get('api/users/' + this.user.id).then(function (response) {
-                // Copy object properties from response.data.data to this.user
-                // without creating a new reference
-                Object.assign(_this2.user, response.data.data);
-                _this2.$emit('user-canceled', _this2.user);
-            });
-        }
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['user'],
+  components: {
+    CountdownTimer: __WEBPACK_IMPORTED_MODULE_0__Timer_vue___default.a
+  },
+  methods: {
+    endShift: function endShift() {
+      var _this = this;
+
+      __WEBPACK_IMPORTED_MODULE_1_axios___default.a.put('api/users/' + this.user.id, this.user).then(function (response) {
+        // Copy object properties from response.data.data to this.user
+        // without creating a new reference
+        _this.user.last_shift_end = _this.datenow = moment().format();
+        console.log(_this.datenow = moment().format());
+        //Object.assign(this.user, response.data.data);
+        //this.$emit('user-saved', this.user)
+      });
     }
-};
+  }
+});
 
 /***/ }),
 /* 70 */
@@ -52591,77 +52617,129 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("table", { staticClass: "table table-striped" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("tbody", [
-      _c("tr", [
-        _c("td", [_vm._v(_vm._s(_vm.user.id))]),
+  return _vm.user.shift_active === 1
+    ? _c("table", { staticClass: "table table-striped" }, [
+        _c("caption", [_vm._v("Yor are currently in a shift")]),
         _vm._v(" "),
-        _c("td", [_vm._v(_vm._s(_vm.user.name))]),
+        _vm._m(0),
         _vm._v(" "),
-        _c("td", [_vm._v(_vm._s(_vm.user.username))]),
-        _vm._v(" "),
-        _c("td", [_vm._v(_vm._s(_vm.user.shift_active))]),
-        _vm._v(" "),
-        _c("td", [_vm._v(_vm._s(_vm.user.type))]),
-        _vm._v(" "),
-        _c("td", [_vm._v(_vm._s(_vm.user.blocked))]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-primary",
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  _vm.saveUser()
-                }
-              }
-            },
-            [_vm._v("Save")]
-          ),
+        _c("tr", [
+          _c("td", [_vm._v(_vm._s(_vm.user.id))]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(_vm.user.name))]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(_vm.user.username))]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(_vm.user.last_shift_start))]),
           _vm._v(" "),
           _c(
-            "a",
-            {
-              staticClass: "btn btn-light",
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  _vm.cancelEdit()
-                }
-              }
-            },
-            [_vm._v("Cancel")]
-          )
+            "td",
+            [
+              _c("CountdownTimer", {
+                attrs: { date: _vm.user.last_shift_start }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("td", [
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-danger",
+                  attrs: { id: "buttonLeave" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      _vm.endShift()
+                    }
+                  }
+                },
+                [_vm._v("End")]
+              )
+            ])
+          ])
         ])
       ])
-    ])
-  ])
+    : _c("table", { staticClass: "table table-striped" }, [
+        _c("caption", [_vm._v("Yor are not in a shift")]),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _c("tr", [
+          _c("td", [_vm._v(_vm._s(_vm.user.id))]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(_vm.user.name))]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(_vm.user.username))]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(_vm.user.last_shift_end))]),
+          _vm._v(" "),
+          _c(
+            "td",
+            [
+              _c("CountdownTimer", { attrs: { date: _vm.user.last_shift_end } })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("td", [
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-success",
+                  attrs: { id: "buttonStart" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      _vm.startShift()
+                    }
+                  }
+                },
+                [_vm._v("Start new Shift")]
+              )
+            ])
+          ])
+        ])
+      ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("ID")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Username")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Star shift")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Type")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Blocked")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Actions")])
-      ])
+    return _c("tr", [
+      _c("th", [_vm._v("ID")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Name")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Username")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Shift Start")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Time passed")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Action")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("ID")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Name")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Username")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Last Shift End")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Time passed")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Action")])
     ])
   }
 ]
@@ -53682,6 +53760,222 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 86 */,
+/* 87 */,
+/* 88 */,
+/* 89 */,
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(93)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(91)
+/* template */
+var __vue_template__ = __webpack_require__(92)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/Timer.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-54f9552c", Component.options)
+  } else {
+    hotAPI.reload("data-v-54f9552c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 91 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+
+        date: {
+            type: Number
+
+        }
+
+    },
+    data: function data() {
+        return {
+            now: 0,
+            count: 0,
+            type: Number
+        };
+    },
+
+
+    methods: {
+        timer_loop: function timer_loop() {
+            this.count++;
+            this.now = Math.trunc(new Date().getTime() / 1000);
+            //console.log(this.now);
+            this.count < 200 && setTimeout(this.timer_loop, 1000);
+        }
+    },
+    mounted: function mounted() {
+
+        this.timer_loop();
+    },
+
+    computed: {
+        seconds: function seconds() {
+
+            return (this.now - this.modifiedDate) % 60;
+        },
+        minutes: function minutes() {
+
+            return (this.now - this.modifiedDate) / 60 % 60;
+        },
+        hours: function hours() {
+
+            return (this.now - this.modifiedDate) / 60 / 60 % 24;
+        },
+        days: function days() {
+
+            return (this.now - this.modifiedDate) / 60 / 60 / 24;
+        },
+
+        modifiedDate: function modifiedDate() {
+            return Math.trunc(Date.parse(this.date) / 1000);
+        }
+
+    }
+});
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm.days <= "0" &&
+    _vm.hours <= "0" &&
+    _vm.minutes <= "0" &&
+    _vm.seconds <= "0"
+      ? _c("div", [
+          _c("p", { staticStyle: { color: "red" } }, [
+            _vm._v(" \n        0:0:0:0\n    ")
+          ])
+        ])
+      : _c("div", [
+          _c("p", [
+            _vm._v(
+              " " +
+                _vm._s(Math.trunc(_vm.days) + "D") +
+                " : " +
+                _vm._s(Math.trunc(_vm.hours) + "H") +
+                " : " +
+                _vm._s(Math.trunc(_vm.minutes) + "M") +
+                " : " +
+                _vm._s(Math.trunc(_vm.seconds) + "S")
+            )
+          ])
+        ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-54f9552c", module.exports)
+  }
+}
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(94);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("6489e7e4", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-54f9552c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Timer.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-54f9552c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Timer.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

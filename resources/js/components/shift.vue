@@ -10,11 +10,12 @@
 
 <script type="text/javascript">    
     import userEdit from './showShif.vue';
-
+    import CountdownTimer from './Timer.vue';
     export default {
         components: {
             'user-edit': userEdit, 
-        },
+            CountdownTimer,
+        }, 
         data: function(){
             return { 
                 profileUser: {
@@ -38,6 +39,6 @@
         },
         mounted() {
             this.getInformationFromLoggedUser();
-        }        
+        }     
     }
 </script>
