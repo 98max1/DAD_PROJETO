@@ -52600,6 +52600,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       __WEBPACK_IMPORTED_MODULE_1_axios___default.a.put('api/users/' + this.user.id, this.user).then(function (response) {
         // Copy object properties from response.data.data to this.user
         // without creating a new reference
+        console.log(user.id + "!##!!#!#!#!##!#!##");
         _this.user.last_shift_end = _this.datenow = moment().format();
         console.log(_this.datenow = moment().format());
         //Object.assign(this.user, response.data.data);
@@ -53839,21 +53840,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
 
     props: {
-
         date: {
-            type: Number
-
+            type: String
         }
-
     },
     data: function data() {
         return {
             now: 0,
-            count: 0,
-            type: Number
+            count: 0
         };
     },
-
 
     methods: {
         timer_loop: function timer_loop() {
@@ -53864,7 +53860,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
-
         this.timer_loop();
     },
 
@@ -53972,7 +53967,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 

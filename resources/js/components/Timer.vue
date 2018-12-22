@@ -15,23 +15,16 @@
 export default {
 
     props: {
-
         date: {
-            type: Number
-
+            type: String
         }
-
     },
     data() {
         return {
             now: 0,
             count: 0,
-            type: Number
         }
-
-
     },
-
     methods: {
         timer_loop() {
             this.count++
@@ -41,7 +34,6 @@ export default {
         },
     },
     mounted() {
-
         this.timer_loop()
     },
     computed: {

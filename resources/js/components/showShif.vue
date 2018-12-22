@@ -62,6 +62,7 @@
 	                .then(response=>{
 	                	// Copy object properties from response.data.data to this.user
 						// without creating a new reference
+						console.log(user.id+"!##!!#!#!#!##!#!##")
 						this.user.last_shift_end = this.datenow = moment().format();
 						console.log(this.datenow = moment().format());
 	                	//Object.assign(this.user, response.data.data);
