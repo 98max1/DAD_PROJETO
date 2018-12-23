@@ -16,8 +16,7 @@ class ShiftControllerAPI extends Controller
 {
     public function index(Request $request)
     {
-        $pessoas = User::paginate(15);
-        return ArticleResource::collection($article);
+        return "OLA :D";
 
         
 
@@ -28,4 +27,36 @@ class ShiftControllerAPI extends Controller
             return User::with('department')->get();
         }*/
     }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'id' => 'required|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
+            'shift' => 'required|email|unique:users,email,'.$id,
+            'shift_date' => 'required|email|unique:users,email,'.$id
+        ]);
+        $user = User::findOrFail($id);
+        $user->update($request->all());
+        return new User($user);
+    }
+
+    public function shiftStart(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->shift_active=1;
+        $user->last_shift_Start = date('Y-m-d H:i:s');
+        $user->update();
+        return new UserResource($user);
+    }
+
+    public function shiftEnd(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->last_shift_end = date('Y-m-d H:i:s');
+        $user->shift_active=0;
+        $user->update();
+        return new UserResource($user);  
+    }
+ 
+
 }

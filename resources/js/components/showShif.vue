@@ -58,17 +58,37 @@
 		},
 	    methods: {
 	        endShift: function(){
-	            axios.put('api/users/'+this.user.id, this.user)
+				//var now = new Date().format('dd-m-yy');
+				//this.user.last_shift_end = now+"";
+				axios.patch('api/shiftEnd/'+this.user.id, this.user)
 	                .then(response=>{
+						console.log(this.user.last_shift_end);
 	                	// Copy object properties from response.data.data to this.user
 						// without creating a new reference
-						console.log(user.id+"!##!!#!#!#!##!#!##")
-						this.user.last_shift_end = this.datenow = moment().format();
-						console.log(this.datenow = moment().format());
-	                	//Object.assign(this.user, response.data.data);
-	                	//this.$emit('user-saved', this.user)
+						this.getUsers();
+	                	Object.assign(this.user, response.data.data);
+						this.$emit('shift-End', this.user);
+
+	                }); 
+			},
+			getUsers: function(){
+	            axios.get('api/users')
+	                .then(response=>{this.users = response.data.data; });
+			},
+			startShift: function(){
+				//this.user.last_shift_start= new Date();
+				//this.user.shift_active= 1;
+	            axios.patch('api/shiftStart/'+this.user.id, this.user)
+	                .then(response=>{
+						this.getUsers();
+	                	Object.assign(this.user, response.data.data);
+						this.$emit('shift-Start', this.user);
 	                });
-	        }
+			}
+
+		},
+		mounted() {
+			this.getUsers();
 		}
 	}
 
