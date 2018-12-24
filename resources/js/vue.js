@@ -41,6 +41,7 @@ const shift = Vue.component('shift',require('./components/shift.vue'));
 const login = Vue.component('login',require('./components/login.vue'));
 const logout = Vue.component('logout',require('./components/logout.vue'));
 const register = Vue.component('register',require('./components/register.vue'));
+const item = Vue.component('item', require('./component/item.vue'));
 
 const routes=[
     {path:'/',redirect:'/users' ,name:'root'},
