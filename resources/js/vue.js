@@ -32,6 +32,8 @@ Vue.use(new VueSocketio({
 
 
 const userListComponent = Vue.component('user-list',require('./components/userList.vue'));
+const itemListComponent = Vue.component('item-list', require('./components/itemList.vue'));
+
 
 const user = Vue.component('user',require('./components/user.vue'));
 const profile = Vue.component('profile', require('./components/profile.vue'));
@@ -48,7 +50,9 @@ const routes=[
     {path:'/shift',component:shift,name:'shift'},
     {path:'/login',component:login,name:'login'},
     {path:'/logout',component:logout,name:'logout'},
-    {path:'/register',component:register,name:'register'}
+    {path:'/register',component:register,name:'register'},
+    {path:'/items', component:item, name:'items'},
+    {path:'/itemList', component:itemListComponent, name:'itemList'}
     ];
 const router = new VueRouter({
     routes:routes 
