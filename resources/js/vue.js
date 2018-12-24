@@ -13,22 +13,32 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router';
 //import {store} from './store';
 import store from './stores/global-store';
-
 Vue.use(VueRouter);
+
+
+import VueSocketio from 'vue-socket.io';
+Vue.use(new VueSocketio({
+    debug: true,
+    connection: 'http://127.0.0.1:8080'
+}));    
+
+ import Toasted from 'vue-toasted';
+ 
+  Vue.use(Toasted, {
+    position: 'bottom-center',
+    duration: 5000,
+    type: 'info',
+  });
+
 
 const userListComponent = Vue.component('user-list',require('./components/userList.vue'));
 
 const user = Vue.component('user',require('./components/user.vue'));
 const profile = Vue.component('profile', require('./components/profile.vue'));
 const shift = Vue.component('shift',require('./components/shift.vue'));
-
 const login = Vue.component('login',require('./components/login.vue'));
 const logout = Vue.component('logout',require('./components/logout.vue'));
 const register = Vue.component('register',require('./components/register.vue'));
-
-
-
-
 
 const routes=[
     {path:'/',redirect:'/users' ,name:'root'},
@@ -41,8 +51,7 @@ const routes=[
     {path:'/register',component:register,name:'register'}
     ];
 const router = new VueRouter({
-    routes 
-    //routes:routes 
+    routes:routes 
 })
 
  router.beforeEach((to, from, next) => {
@@ -68,7 +77,60 @@ const app = new Vue({
         console.log(this.$store.state.user);*/
         this.$store.commit('loadTokenAndUserFromSession');
         //console.log(this.$store.state.user);
-    }
-
+    },
+    data:{
+        msgGlobalText: "",
+        msgGlobalTextArea: "",
+        msgManagerText: "",
+        msgManagerTextArea: "",
+        player1:undefined,
+        player2: undefined,
+      },
+      store,
+      methods: {
+        sendManagerText: function(){
+            console.log('Sending to the server (only same department) this message: "' + this.msgManagerText + '"');
+            if (this.$store.state.user === null) {
+                this.$toasted.error('User is not logged in!');            
+            } else {
+                this.$socket.emit('text_from_worker_to_managers', this.msgManagerText, this.$store.state.user);
+            }
+            this.msgManagerText = "";
+        }
+    
+      },
+        sockets:{
+            connect(){
+                console.log('socket connected (socket ID = '+this.$socket.id+')');
+            }, 
+            msg_from_server(dataFromServer){
+                console.log('Receiving this message from Server: "' + dataFromServer + '"');            
+                this.msgGlobalTextArea = dataFromServer + '\n' + this.msgGlobalTextArea ;
+            },  
+            text_from_server_managers(dataFromServer){
+                console.log('Receiving this message from Server: "' + dataFromServer + '"');            
+                this.msgManagerTextArea = dataFromServer + '\n' + this.msgManagerTextArea ;
+            },
+            privateMessage(dataFromServer){
+                let sourceName = dataFromServer[1] === null ? 'Unknown': dataFromServer[1].name;
+                this.$toasted.show('Message "' + dataFromServer[0] + '" sent from "' + sourceName + '"');        
+            },
+            privateMessage_unavailable(destUser){
+                this.$toasted.error('User "' + destUser.name + '" is not available');       
+            },
+            privateMessage_sent(dataFromServer){
+                this.$toasted.success('Message "' + dataFromServer[0] + '" was sent to "' + dataFromServer[1].name + '"');
+            },
+            user_changed(dataFromServer){
+                this.$toasted.show('User "' + dataFromServer.name + '" (ID= ' + dataFromServer.id + ') has changed');
+            },
+        },
+      created() {
+          console.log('-----');
+          console.log(this.$store.state.user);
+          this.$store.commit('loadDepartments');
+          this.$store.commit('loadTokenAndUserFromSession');
+          console.log(this.$store.state.user);
+      }
 }).$mount('#app');
 

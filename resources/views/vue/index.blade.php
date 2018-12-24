@@ -39,10 +39,19 @@
     <router-link to="/shift" v-show="this.$store.state.user">Shift</router-link> #
     <router-link to="/login"  v-show="!this.$store.state.user">Login</router-link> #
     <router-link to="/logout" v-show="this.$store.state.user">Logout</router-link>
-    
     <br>
       <em>User: @{{this.$store.state.user != null ? this.$store.state.user.name : " - None - " }}</em>
-    <hr> <!--
+    <hr> 
+    <div>
+    <input type="text" id="inputManager" class="inputchat"
+    v-model="msgManagerText" @keypress.enter="sendManagerText">
+  </div>
+
+  <div>
+    <textarea id="textManager" class="inputchat"
+    v-model="msgManagerTextArea">Manager notifications</textarea>
+  </div>
+  <!--
     <form class="form-inline my-2 my-lg-0">
      <a class="dropdown-item" >
         <button type="button" v-on:click="remove" value="submit">Logout</button>
