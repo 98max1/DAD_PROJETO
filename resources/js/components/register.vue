@@ -86,7 +86,7 @@
 		                .then(response=>{
 		                	Object.assign(this.user, response.data.data);
 		                	this.typeofmsg = "alert-success";
-	                        this.message = "Worker resgistered correctly.";
+	                        this.message = "Worker registered correctly.";
 	                        this.showMessage = true;
 		                	//this.$emit('user-saved', this.user)
 		                }).catch(error=>{

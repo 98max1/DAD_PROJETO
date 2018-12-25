@@ -41,6 +41,7 @@
     
     <br>
       <em>User: @{{this.$store.state.user != null ? this.$store.state.user.name : " - None - " }}</em>
+      <!--<em>User: @{{this.$store.state.user != null ? storage/private/ + this.$store.state.user.photo_url: " - None - " }}</em>-->
     <hr> <!--
     <form class="form-inline my-2 my-lg-0">
      <a class="dropdown-item" >

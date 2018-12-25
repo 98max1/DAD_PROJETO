@@ -32,6 +32,12 @@ export default new Vuex.Store({
             state.user =  user;
             sessionStorage.setItem('user', JSON.stringify(user));
         },
+        /*setPhoto: (state, url) => {
+            state.user.photo_url =  url;
+            let aux= sessionStorage.getItem('user');
+            console.log(sessionStorage.getItem('user.photo_url'));
+        aux.photo_url=url;
+        },*/
         setToken: (state, token) => {
             state.token= token;
             sessionStorage.setItem('token', token);

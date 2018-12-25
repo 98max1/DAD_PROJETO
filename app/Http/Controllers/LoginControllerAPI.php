@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 define('YOUR_SERVER_URL', 'http://restaurantmanager.dad/');
 // Check "oauth_clients" table for next 2 values:
-define('CLIENT_ID', '8');
-define('CLIENT_SECRET','ZrOi94qeiSzw0KgtJ9CXo7wlzik5L19bmd3tnpci');
+define('CLIENT_ID', '2');
+define('CLIENT_SECRET','wr7e7Oq7DuOOKKnmgplUlHTWgMRgGWiBbf0GEBAL');
 
 class LoginControllerAPI extends Controller
 {
@@ -39,15 +39,4 @@ class LoginControllerAPI extends Controller
         \Auth::guard('api')->user()->token()->delete();
         return response()->json(['msg'=>'Token revoked'], 200);
     }
-
-
-    // public function logout(Request $request)
-    // {
-    //     //dd($request);
-    //     $accessToken = $this->auth->user()->token();
-    //     dd($request);
-    //     // $request->user()->token()->revoke();
-    //     // $request->user()->token()->delete(); 
-    //     // return response()->json(['msg'=>'Token has been revoked and deleted'], 200);
-    // }
 }

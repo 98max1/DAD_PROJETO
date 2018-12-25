@@ -41,12 +41,12 @@
 			editUser: function(user){
 				this.editingUser=user;			
 				this.$emit('edit-click',user);
+				this.editingUser=null;
 			},
 			deleteUser: function(user){
 				this.editingUser=null;
-				console.log(user.id+"!##!!#!#!#!##!#!##")
 				this.$emit('delete-click',user);
-
+				this.editingUser=null;
 			}	
 		}
 	}

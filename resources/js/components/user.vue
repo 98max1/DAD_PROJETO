@@ -3,14 +3,13 @@
         <div class="jumbotron">
             <h1>{{ title }}</h1>
         </div>
-
         <user-list :users="users" @edit-click="editUser" @delete-click="deleteUser" @message="childMessage" ref="usersListRef"></user-list>
+        <user-edit v-show ="this.$store.state.user.type=='manager'" :user="currentUser" @user-saved="savedUser" @user-canceled="cancelEdit" v-if="currentUser"></user-edit>                
 
         <div class="alert alert-success" v-if="showSuccess">             
             <button type="button" class="close-btn" v-on:click="showSuccess=false">&times;</button>
             <strong>{{ successMessage }}</strong>
         </div>
-        <user-edit v-show ="this.$store.state.user.type=='manager'" :user="currentUser" @user-saved="savedUser" @user-canceled="cancelEdit" v-if="currentUser"></user-edit>                
     </div>              
 </template>
 
@@ -32,20 +31,19 @@
             editUser: function(user){
                 this.currentUser = user;
                 this.showSuccess = false;
+                console.log("++"+this.$store.state.user.type);
             },
             deleteUser: function(user){
-                       // console.log("#####################");
+                this.currentUser=user;
                 axios.delete('api/users/'+this.currentUser.id)
                     .then(response => {
                         this.showSuccess = true;
                         this.successMessage = 'User Deleted';
                         this.getUsers();
-                        this.currentUser=null;
-                        console.log(response);
-                        console.log("#####################");
                     }).catch(error=>{
                         console.log(error);
                     })
+                    this.currentUser=null;
             },
             savedUser: function(){
                 this.currentUser = null;

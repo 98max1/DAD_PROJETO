@@ -30,6 +30,8 @@ Route::middleware('auth:api')->post('users', 'UserControllerAPI@store');
 Route::put('users/{id}', 'UserControllerAPI@update');
 Route::delete('users/{id}', 'UserControllerAPI@destroy');
 
+Route::post('upload/{id}', 'UserControllerAPI@upload')->name('upload');
+
 /*
 Caso prefiram usar Resource Routes para o user, podem implementar antes as rotas:
 NOTA: neste caso, o parâmetro a receber nos métodos do controlador é user e não id
@@ -37,6 +39,14 @@ NOTA: neste caso, o parâmetro a receber nos métodos do controlador é user e n
 Route::apiResource('users','UserControllerAPI');
 Route::get('users/emailavailable', 'UserControllerAPI@emailAvailable');
 */
+
+	Route::post('reset', 'UserControllerAPI@reset')->name('reset');
+	Route::get('reset/{token?}/email/{email}', 'UserControllerAPI@resetCheck')->name('resetPassword');
+	Route::post('resetPassword', 'ResetPasswordControllerAPI@resetPassword')->name('resetPassword');
+/*
+	Route::get('reset/{token?}/email/{email}', 'Auth\UserControllerAPI@reset');
+	Route::post('email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+	Route::post('reset', 'Auth\ResetPasswordController@reset');*/
 
 Route::post('login', 'LoginControllerAPI@login')->name('login');
  

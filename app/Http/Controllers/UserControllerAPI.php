@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Datetime;
+
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Jsonable;
 
 use App\Http\Resources\User as UserResource;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 use App\User;
 use App\StoreUserRequest;
+use App\Mail\Welcome;
 use Hash;
 
 class UserControllerAPI extends Controller
@@ -49,19 +53,82 @@ class UserControllerAPI extends Controller
         $user->fill($request->all());
         $user->password = Hash::make($user->password);
         $user->save();
-        return response()->json(new UserResource($user), 201);
+        \Mail::to($user)->send(new Welcome);
+        return response()->json($user, 201);
+    }
+
+    public function reset(Request $request)
+    {
+        if (DB::table('users')->where('email','=',$request->email)->exists()) {
+            DB::table('password_resets')->where('email','=',$request->email)->delete();
+            DB::table('password_resets')->insert([
+                'email' => $request->email,
+                'token' => str_random(60), //change 60 to any length you want
+                'created_at' => new Datetime()
+            ]); 
+
+            $tokenData = DB::table('password_resets')
+            ->where('email', $request->email)->first();
+
+           $token = $tokenData->token;
+           $email = $request->email;
+
+            \Mail::to($request)->send(new Welcome($token,$email));
+            return response()->json(201);
+        }
+        return response()->json(404);
     }              
 
     public function update(Request $request, $id)
     {
+        /*if ($request->name||$request->username||) {
+            # code...
+        }*/
         $request->validate([
-                'name' => 'required|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
-                'email' => 'required|email|unique:users,email,'.$id,
-                'age' => 'integer|between:18,75'
+                'name' => 'nullable|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
+                'username' => 'nullable|min:2',
+                'email' => 'nullable|email'
             ]);
         $user = User::findOrFail($id);
-        $user->update($request->all());
-        return new UserResource($user);
+        if ($request->has('password')) {
+            $request->validate(['password' => 'nullable|min:3']);
+            if (!is_null($request->password)) {
+                $user->password=Hash::make($request->password);
+            }
+        }
+        if (!is_null($request->name)) {
+            $user->name=$request->name;
+        }
+        if (!is_null($request->username)) {
+            $user->username=$request->username;
+        }
+        if (!is_null($request->email)) {
+            $user->email=$request->email;
+        }
+        $user->save();
+        return response()->json($user,201);
+    }
+
+    public function upload(Request $request,$id)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('/public/profiles');
+            $name = basename($path);
+            
+            $oldUrl=DB::table('users')->where('id','=',$id)->value('photo_url');
+            $check=Storage::delete('public/profiles/'.$oldUrl);
+            $user=User::findOrFail($id);
+            $user->photo_url=$name;
+            $user->save();
+            //DB::table('users')->where('id','=',$id)->update(['photo_url' => $name]);
+            return response()->json($user,201);
+        }else{
+            return response()->json(404);
+        }
     }
 
     public function destroy($id)

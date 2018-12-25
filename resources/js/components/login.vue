@@ -21,8 +21,9 @@
             </div>
             <div class="form-group">
                 <a class="btn btn-primary" v-on:click.prevent="login">Login</a>
-                <a class="btn btn-danger" v-on:click.prevent="login">Reset Password</a>
+                <router-link class="btn btn-danger" to="/reset">Forgot Password?</router-link>
             </div>
+            
         </div>
     </div>
 </template>
@@ -49,13 +50,11 @@
                         return axios.get('api/users/me');
                     })
                     .then(response => {
-                        /*console.log("aaaaaaaaaaaaaaaaaaaa");
-                        console.log(response.data.data);
-                        console.log("11111111111111");*/
                         this.$store.commit('setUser',response.data.data);
                         this.typeofmsg = "alert-success";
                         this.message = "User authenticated correctly";
                         this.showMessage = true;
+                        this.$router.push('/');
                     })
                     .catch(error => {
                         this.$store.commit('clearUserAndToken');
