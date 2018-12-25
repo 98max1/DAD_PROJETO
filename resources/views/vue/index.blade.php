@@ -36,13 +36,28 @@
     <router-link to="/register" v-show="this.$store.state.user && this.$store.state.user.type=='manager'">Register Worker</router-link> #  
     <router-link to="/users" v-show="this.$store.state.user && this.$store.state.user.type=='manager'">Users</router-link> # 
     <router-link to="/profile" v-show="this.$store.state.user">Profile</router-link> #
+    <router-link to="/shift" v-show="this.$store.state.user">Shift</router-link> #
+    <router-link to="/meals" v-show="this.$store.state.user">Meals</router-link> #
     <router-link to="/login"  v-show="!this.$store.state.user">Login</router-link> #
     <router-link to="/logout" v-show="this.$store.state.user">Logout</router-link>
-    
     <br>
       <em>User: @{{this.$store.state.user != null ? this.$store.state.user.name : " - None - " }}</em>
+<<<<<<< HEAD
       <!--<em>User: @{{this.$store.state.user != null ? storage/private/ + this.$store.state.user.photo_url: " - None - " }}</em>-->
     <hr> <!--
+=======
+    <hr> 
+    <div>
+    <input type="text" id="inputManager" class="inputchat"
+    v-model="msgManagerText" @keypress.enter="sendManagerText">
+  </div>
+
+  <div>
+    <textarea id="textManager" class="inputchat"
+    v-model="msgManagerTextArea">Manager notifications</textarea>
+  </div>
+  <!--
+>>>>>>> 6a0dc0c35f5aa35c2d3c527ac3f297230fa68613
     <form class="form-inline my-2 my-lg-0">
      <a class="dropdown-item" >
         <button type="button" v-on:click="remove" value="submit">Logout</button>

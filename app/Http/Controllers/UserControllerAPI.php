@@ -28,9 +28,9 @@ class UserControllerAPI extends Controller
 
         /*Caso não se pretenda fazer uso de Eloquent API Resources (https://laravel.com/docs/5.5/eloquent-resources), é possível implementar com esta abordagem:
         if ($request->has('page')) {
-            return User::with('department')->paginate(5);;
+            return User::with('department')->paginate(5);
         } else {
-            return User::with('department')->get();;
+            return User::with('department')->get();
         }*/
     }
 

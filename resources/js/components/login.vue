@@ -50,6 +50,13 @@
                         return axios.get('api/users/me');
                     })
                     .then(response => {
+<<<<<<< HEAD
+=======
+                        /*console.log("aaaaaaaaaaaaaaaaaaaa");
+                        console.log(response.data.data);
+                        console.log("11111111111111");*/
+                        this.$socket.emit('user_enter', response.data.data);
+>>>>>>> 6a0dc0c35f5aa35c2d3c527ac3f297230fa68613
                         this.$store.commit('setUser',response.data.data);
                         this.typeofmsg = "alert-success";
                         this.message = "User authenticated correctly";
