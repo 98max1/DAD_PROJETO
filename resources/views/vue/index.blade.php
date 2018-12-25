@@ -42,22 +42,17 @@
     <router-link to="/logout" v-show="this.$store.state.user">Logout</router-link>
     <br>
       <em>User: @{{this.$store.state.user != null ? this.$store.state.user.name : " - None - " }}</em>
-<<<<<<< HEAD
-      <!--<em>User: @{{this.$store.state.user != null ? storage/private/ + this.$store.state.user.photo_url: " - None - " }}</em>-->
-    <hr> <!--
-=======
     <hr> 
-    <div>
-    <input type="text" id="inputManager" class="inputchat"
-    v-model="msgManagerText" @keypress.enter="sendManagerText">
-  </div>
+      <div>
+        <input type="text" id="inputManager" class="inputchat" v-model="msgManagerText" @keypress.enter="sendManagerText">
+      </div>
 
-  <div>
-    <textarea id="textManager" class="inputchat"
-    v-model="msgManagerTextArea">Manager notifications</textarea>
-  </div>
-  <!--
->>>>>>> 6a0dc0c35f5aa35c2d3c527ac3f297230fa68613
+      <div>
+        <textarea id="textManager" class="inputchat"
+        v-model="msgManagerTextArea">Manager notifications</textarea>
+      </div>
+      <!--<em>User: @{{this.$store.state.user != null ? storage/private/ + this.$store.state.user.photo_url: " - None - " }}</em>-->
+    </hr> <!--
     <form class="form-inline my-2 my-lg-0">
      <a class="dropdown-item" >
         <button type="button" v-on:click="remove" value="submit">Logout</button>

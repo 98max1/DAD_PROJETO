@@ -37,7 +37,6 @@ const itemListComponent = Vue.component('item-list', require('./components/itemL
 
 const user = Vue.component('user',require('./components/user.vue'));
 const profile = Vue.component('profile', require('./components/profile.vue'));
-<<<<<<< HEAD
 const profileEdit = Vue.component('profileEdit', require('./components/profileEdit.vue'));
 const login = Vue.component('login',require('./components/login.vue'));
 const logout = Vue.component('logout',require('./components/logout.vue'));
@@ -45,37 +44,26 @@ const register = Vue.component('register',require('./components/register.vue'));
 const reset = Vue.component('reset',require('./components/reset.vue'));
 const resetPassword = Vue.component('resetPassword',require('./components/resetPassword.vue'));
 
-=======
 const shift = Vue.component('shift',require('./components/shift.vue'));
-const login = Vue.component('login',require('./components/login.vue'));
-const logout = Vue.component('logout',require('./components/logout.vue'));
-const register = Vue.component('register',require('./components/register.vue'));
 const item = Vue.component('item', require('./components/item.vue'));
 const meal = Vue.component('meal', require('./components/meal.vue'));
->>>>>>> 6a0dc0c35f5aa35c2d3c527ac3f297230fa68613
 
 const routes=[
     {path:'/',redirect:'/users' ,name:'root'},
     {path:'/users',component:user, name:'users'},
     {path:'/list',component:userListComponent,name:'userList'},
     {path:'/profile',component:profile,name:'profile'},
-<<<<<<< HEAD
     {path:'/profileEdit',component:profileEdit,name:'profileEdit'},
     {path:'/login',component:login,name:'login'},
     {path:'/logout',component:logout,name:'logout'},
     {path:'/register',component:register,name:'register'},
     {path:'/reset',component:reset,name:'reset'},
-    {path:'/reset/:token/email/:email',component:resetPassword,name:'resetPassword'}
+    {path:'/reset/:token/email/:email',component:resetPassword,name:'resetPassword'},
     //{path:'/resetPassword',component:resetPassword,name:'resetPassword'}
-=======
     {path:'/shift',component:shift,name:'shift'},
-    {path:'/login',component:login,name:'login'},
-    {path:'/logout',component:logout,name:'logout'},
-    {path:'/register',component:register,name:'register'},
     {path:'/items', component:item, name:'items'},
     {path:'/itemList', component:itemListComponent, name:'itemList'},
     {path:'/meals', component:meal, name:'meals'}
->>>>>>> 6a0dc0c35f5aa35c2d3c527ac3f297230fa68613
     ];
 const router = new VueRouter({
     routes:routes 
@@ -93,7 +81,6 @@ const router = new VueRouter({
     }
     next();
 });
-
 const app = new Vue({
    // el: '#app',
     //store:store,
@@ -155,7 +142,6 @@ const app = new Vue({
       created() {
           console.log('-----');
           console.log(this.$store.state.user);
-          this.$store.commit('loadDepartments');
           this.$store.commit('loadTokenAndUserFromSession');
           console.log(this.$store.state.user);
       }

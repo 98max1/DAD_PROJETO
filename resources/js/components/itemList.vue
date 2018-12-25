@@ -16,7 +16,7 @@
 	            <td>{{item.name}}</td>
 	            <td>{{item.type}}</td>
 	            <td>{{item.description}}</td>
-	            <td><img type="img" name="photo" :src="'storage/app/public/profiles/'+ item.photo_url "></td>
+	            <td><img class="photo" type="img" name="photo" :src="'storage/items/'+item.photo_url "></td>
 	            <td>{{item.price}}</td>
 	        </tr>   
 	    </tbody>
@@ -37,5 +37,8 @@
 </script>
 
 <style>
-
+.photo{
+	width: 130px;
+	height: 130px; 
+}
 </style>

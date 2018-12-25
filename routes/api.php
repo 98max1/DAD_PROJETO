@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/items', 'ItemControllerAPI@index');
 
-Route::get('departments', 'DepartmentControllerAPI@index');
+//Route::get('departments', 'DepartmentControllerAPI@index');
 Route::get('/shift', 'ShiftControllerAPI@index');
 Route::get('users', 'UserControllerAPI@index');
 Route::get('users/emailavailable', 'UserControllerAPI@emailAvailable');
@@ -33,9 +33,7 @@ Route::middleware('auth:api')->post('users', 'UserControllerAPI@store');
 Route::put('users/{id}', 'UserControllerAPI@update');
 Route::delete('users/{id}', 'UserControllerAPI@destroy');
 
-<<<<<<< HEAD
 Route::post('upload/{id}', 'UserControllerAPI@upload')->name('upload');
-=======
 
 Route::patch('shiftStart/{id}', 'ShiftControllerAPI@shiftStart');
 Route::patch('shiftEnd/{id}', 'ShiftControllerAPI@shiftEnd');
@@ -43,7 +41,6 @@ Route::patch('shiftEnd/{id}', 'ShiftControllerAPI@shiftEnd');
 Route::get('meals', 'MealControllerAPI@index');
 
                         
->>>>>>> 6a0dc0c35f5aa35c2d3c527ac3f297230fa68613
 
 /*
 Caso prefiram usar Resource Routes para o user, podem implementar antes as rotas:
