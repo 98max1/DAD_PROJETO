@@ -62,33 +62,30 @@
 				//this.user.last_shift_end = now+"";
 				axios.patch('api/shiftEnd/'+this.user.id, this.user)
 	                .then(response=>{
-						console.log(this.user.last_shift_end);
-	                	// Copy object properties from response.data.data to this.user
-						// without creating a new reference
-						this.getUsers();
-	                	Object.assign(this.user, response.data.data);
+						console.log(response.data);
+						Object.assign(this.user, response.data);
+						Object.assign(this.$store.state.user, response.data);
+                        this.$store.commit('setUser',response.data);
 						this.$emit('shift-End', this.user);
 
 	                }); 
-			},
-			getUsers: function(){
-	            axios.get('api/users')
-	                .then(response=>{this.users = response.data.data; });
 			},
 			startShift: function(){
 				//this.user.last_shift_start= new Date();
 				//this.user.shift_active= 1;
 	            axios.patch('api/shiftStart/'+this.user.id, this.user)
 	                .then(response=>{
-						this.getUsers();
-	                	Object.assign(this.user, response.data.data);
+						console.log(response.data);
+	                	Object.assign(this.user, response.data);
+	                	Object.assign(this.$store.state.user, response.data);
+						this.$store.commit('setUser',response.data);
 						this.$emit('shift-Start', this.user);
 	                });
 			}
 
 		},
 		mounted() {
-			this.getUsers();
+			//this.getUsers();
 		}
 	}
 
@@ -104,9 +101,6 @@ h2 {
 }
 .btn-danger .btn{
 	text-align: center;
-}
-#buttonLeave{
-	color: white !important;
 }
 
 

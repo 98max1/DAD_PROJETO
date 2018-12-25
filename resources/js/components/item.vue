@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="jumbotron">
-			<h1>{{Title}}</h1>
+			<h1>{{title}}</h1>
 		</div>
 
 		<item-list :items="items" ref="itemsListRef"></item-list>

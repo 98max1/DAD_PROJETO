@@ -41,7 +41,8 @@ const shift = Vue.component('shift',require('./components/shift.vue'));
 const login = Vue.component('login',require('./components/login.vue'));
 const logout = Vue.component('logout',require('./components/logout.vue'));
 const register = Vue.component('register',require('./components/register.vue'));
-const item = Vue.component('item', require('./component/item.vue'));
+const item = Vue.component('item', require('./components/item.vue'));
+const meal = Vue.component('meal', require('./components/meal.vue'));
 
 const routes=[
     {path:'/',redirect:'/users' ,name:'root'},
@@ -53,7 +54,8 @@ const routes=[
     {path:'/logout',component:logout,name:'logout'},
     {path:'/register',component:register,name:'register'},
     {path:'/items', component:item, name:'items'},
-    {path:'/itemList', component:itemListComponent, name:'itemList'}
+    {path:'/itemList', component:itemListComponent, name:'itemList'},
+    {path:'/meals', component:meal, name:'meals'}
     ];
 const router = new VueRouter({
     routes:routes 

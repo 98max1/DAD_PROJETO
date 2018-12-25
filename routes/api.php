@@ -37,6 +37,8 @@ Route::delete('users/{id}', 'UserControllerAPI@destroy');
 Route::patch('shiftStart/{id}', 'ShiftControllerAPI@shiftStart');
 Route::patch('shiftEnd/{id}', 'ShiftControllerAPI@shiftEnd');
 
+Route::get('meals', 'MealControllerAPI@index');
+
                         
 
 /*

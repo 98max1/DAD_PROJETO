@@ -17,6 +17,7 @@ export default {
     props: {
         date: {
             type: String
+            //type: Date
         }
     },
     data() {
