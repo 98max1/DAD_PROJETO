@@ -28,7 +28,7 @@ Route::middleware('auth:api')->get('users/me', 'UserControllerAPI@myProfile');
 Route::get('users/{id}', 'UserControllerAPI@show');
 
 //Route::post('users', 'UserControllerAPI@store');
-Route::middleware('auth:api')->post('users', 'UserControllerAPI@store');
+//Route::middleware('auth:api')->post('users', 'UserControllerAPI@store');
 
 Route::put('users/{id}', 'UserControllerAPI@update');
 Route::delete('users/{id}', 'UserControllerAPI@destroy');
@@ -39,6 +39,7 @@ Route::patch('shiftStart/{id}', 'ShiftControllerAPI@shiftStart');
 Route::patch('shiftEnd/{id}', 'ShiftControllerAPI@shiftEnd');
 
 Route::get('meals', 'MealControllerAPI@index');
+Route::post('meals', 'UserControllerAPI@store');
 
                         
 

@@ -2,6 +2,13 @@
     <div>
         <div class="jumbotron">
             <h1>{{ title }}</h1>
+        </div>  
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <router-link to="/mealCreate" tag="button" class="btn btn-outline-secondary">Create Meal</router-link>
+
+            </div>
         </div>
 
         <meal-list :meals="meals"  @message="childMessage" ref="mealsListRef"></meal-list>
@@ -15,6 +22,7 @@
 
 <script type="text/javascript">
     import MealList from './mealList.vue';
+    import MealCreate from './mealCreate.vue';
     
     export default {
         data: function(){
@@ -34,10 +42,16 @@
             childMessage: function(message){
                 this.showSuccess = true;
                 this.successMessage = message;
-            }
+            },
+            mealRegister: function(){
+				//this.user.last_shift_start= new Date();
+				//this.user.shift_active= 1;
+	            axios.get('api/shiftStart/'+this.user.id, this.user)
+			}
         },
         components: {
-            'meal-list': MealList
+            'meal-list': MealList,
+            'meal-create': MealCreate,
         },
         mounted() {
             this.getMeals();

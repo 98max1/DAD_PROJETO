@@ -11,6 +11,7 @@ class Meal extends Resource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'state' => $this->state,
             'table_number' => $this->table_number,
             'start' => $this->start,

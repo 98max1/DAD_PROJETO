@@ -14,7 +14,7 @@ class Meal extends Model
      * @var array
      */
     protected $fillable = [
-        'state', 'table_number','start','end','responsible_waiter_id','total_price_preview'
+        'id','state', 'table_number','start','end','responsible_waiter_id','total_price_preview'
     ];
 
     /**

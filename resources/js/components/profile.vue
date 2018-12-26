@@ -28,10 +28,10 @@
         methods: {
             getInformationFromLoggedUser() {
                 Object.assign(this.profileUser , this.$store.state.user);
-                //console.log("profileUser");
-                //console.log(this.profileUser.photo_url);
-                //console.log("profileUseraaaaaaaaaaa");
-                //console.log(this.$store.state.user.photo_url);
+                console.log("profileUser");
+                console.log(this.profileUser.photo_url);
+                console.log("profileUseraaaaaaaaaaa");
+                console.log(this.$store.state.user.photo_url);
             },
             savedUser: function(){
                 this.showSuccess = true;

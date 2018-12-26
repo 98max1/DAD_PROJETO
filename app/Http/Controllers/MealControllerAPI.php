@@ -21,4 +21,23 @@ class MealControllerAPI extends Controller
 			return MealResource::collection(Meal::all());
 		}
 	}
+	public function store(Request $request)
+    {
+        $request->validate([
+                'table_number' => 'required',
+                'total_price_preview' => 'required'
+            ]);
+        $meal = new User();
+        $meal->fill($request->all());
+		
+
+		$meal = Meal::where('table_number',$user->table_number);
+		if($meal != null)
+			return response()->json(['error' => 'Number of table have to be unique!'],404);
+
+		//$meal->save();
+        //return response()->json($user, 201);
+    }
+
 } 
+

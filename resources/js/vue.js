@@ -47,6 +47,7 @@ const resetPassword = Vue.component('resetPassword',require('./components/resetP
 const shift = Vue.component('shift',require('./components/shift.vue'));
 const item = Vue.component('item', require('./components/item.vue'));
 const meal = Vue.component('meal', require('./components/meal.vue'));
+const mealCreate = Vue.component('mealCreate', require('./components/mealCreate.vue'));
 
 const routes=[
     {path:'/',redirect:'/users' ,name:'root'},
@@ -63,7 +64,8 @@ const routes=[
     {path:'/shift',component:shift,name:'shift'},
     {path:'/items', component:item, name:'items'},
     {path:'/itemList', component:itemListComponent, name:'itemList'},
-    {path:'/meals', component:meal, name:'meals'}
+    {path:'/meals', component:meal, name:'meals'},
+    {path:'/mealCreate', component:mealCreate, name:'mealCreate'},
     ];
 const router = new VueRouter({
     routes:routes 
