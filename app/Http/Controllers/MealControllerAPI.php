@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -11,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use App\Meal;
 use App\StoreItemRequest;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 class MealControllerAPI extends Controller
 {
 	public function index(Request $request)
@@ -21,23 +22,47 @@ class MealControllerAPI extends Controller
 			return MealResource::collection(Meal::all());
 		}
 	}
+	public function mealActive(Request $request){
+
+		/*$meal_check = Meal::select()
+						->where('state','=','active')
+						->where('responsible_waiter_id','=',\Auth::guard('api')->user()->id)
+						->get(); */
+		return MealResource::collection( Meal::select()
+			->where('state','=','active')
+			->where('responsible_waiter_id','=',\Auth::guard('api')->user()->id)
+			->get());	
+	}
+
 	public function store(Request $request)
     {
-        $request->validate([
-                'table_number' => 'required',
-                'total_price_preview' => 'required'
-            ]);
-        $meal = new User();
-        $meal->fill($request->all());
-		
+		try{
+			error_log('Some message here.');
+			$request->validate([
+					'table_number' => 'required',
+					'total_price_preview' => 'required'
+				]);
+			$meal = new Meal();
+			$meal->fill($request->all());
+			$meal->start = date('Y-m-d H:i:s');
+			
+			$meal->responsible_waiter_id = \Auth::guard('api')->user()->id;
+			$meal_check = Meal::select()
+						->where('table_number','=',$meal->table_number)
+						->where('state','=','active')
+						->get(); 
 
-		$meal = Meal::where('table_number',$user->table_number);
-		if($meal != null)
-			return response()->json(['error' => 'Number of table have to be unique!'],404);
+			if(!$meal_check->isEmpty())
+				throw new \Exception("Number of table have to be unique!");
+
+			$meal->save();
+			return response()->json($meal,200);
+		}catch(\Exception $error){
+			$error= $error->getMessage();
+			return response()->json($error,404);
+		}
 
 		//$meal->save();
         //return response()->json($user, 201);
-    }
-
-} 
-
+	}
+}

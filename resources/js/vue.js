@@ -43,11 +43,13 @@ const logout = Vue.component('logout',require('./components/logout.vue'));
 const register = Vue.component('register',require('./components/register.vue'));
 const reset = Vue.component('reset',require('./components/reset.vue'));
 const resetPassword = Vue.component('resetPassword',require('./components/resetPassword.vue'));
-
 const shift = Vue.component('shift',require('./components/shift.vue'));
 const item = Vue.component('item', require('./components/item.vue'));
 const meal = Vue.component('meal', require('./components/meal.vue'));
 const mealCreate = Vue.component('mealCreate', require('./components/mealCreate.vue'));
+
+const order = Vue.component('order', require('./components/order.vue'));
+const orderCreate = Vue.component('orderCreate', require('./components/orderCreate.vue'));
 
 const routes=[
     {path:'/',redirect:'/users' ,name:'root'},
@@ -64,8 +66,13 @@ const routes=[
     {path:'/shift',component:shift,name:'shift'},
     {path:'/items', component:item, name:'items'},
     {path:'/itemList', component:itemListComponent, name:'itemList'},
+
     {path:'/meals', component:meal, name:'meals'},
     {path:'/mealCreate', component:mealCreate, name:'mealCreate'},
+
+    {path:'/orders', component:order, name:'orders'},
+    {path:'/orderCreate', component:orderCreate, name:'orderCreate'},
+    
     ];
 const router = new VueRouter({
     routes:routes 

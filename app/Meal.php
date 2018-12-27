@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Database\Eloquent\Model;
 
 class Meal extends Model
@@ -22,4 +22,11 @@ class Meal extends Model
      *
      * @var array
      */
+    public function orders(){
+		return $this->hasMany('App\Order','meal_id','id');
+    }
+    public function user(){
+    return $this->belongsTo('App\User','responsible_waiter_id','id');
+
+	}
 }

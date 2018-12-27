@@ -6,12 +6,12 @@
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <router-link to="/mealCreate" tag="button" class="btn btn-outline-secondary">Create Meal</router-link>
+                <router-link to="/orderCreate" tag="button" class="btn btn-outline-secondary">Create order</router-link>
 
             </div>
         </div>
 
-        <meal-list :meals="meals"  @message="childMessage" ref="mealsListRef"></meal-list>
+        <order-list :ordersConfirmed="ordersConfirmed" :ordersPending="ordersPending" @message="childMessage" ref="ordersListRef"></order-list>
 
         <div class="alert alert-success" v-if="showSuccess">             
             <button type="button" class="close-btn" v-on:click="showSuccess=false">&times;</button>
@@ -21,42 +21,41 @@
 </template>
 
 <script type="text/javascript">
-    import MealList from './mealList.vue';
-    import Vue from 'vue'
-    import VueSwal from 'vue-swal'
+    import OrderList from './orderList.vue';
     
     export default {
         data: function(){
             return { 
-                title: 'List Meals',
+                title: 'List Orders',
                 showSuccess: false,
                 successMessage: '',
                 currentUser: null,
-                meals: [],
+                ordersPending: [],
+                ordersConfirmed: [],
                 errors:{},
             }
             errors:{}
         },
         methods: {
-            getMeals: function(){
-                axios.get('api/meals')
-                    .then(response=>{this.meals = response.data.data; });
+            getOrdersPending: function(){
+                axios.get('api/ordersPending')
+                    .then(response=>{this.ordersPending = response.data.data; });
+            },
+            getOrdersConfirmed: function(){
+                axios.get('api/ordersConfirmed')
+                    .then(response=>{this.ordersConfirmed = response.data.data; });
             },
             childMessage: function(message){
                 this.showSuccess = true;
                 this.successMessage = message;
             },
-            mealRegister: function(){
-				//this.user.last_shift_start= new Date();
-				//this.user.shift_active= 1;
-	            axios.get('api/shiftStart/'+this.user.id, this.user)
-			}
         },
         components: {
-            'meal-list': MealList,
+            'order-list': OrderList,
         },
         mounted() {
-            this.getMeals();
+            this.getOrdersPending();
+            this.getOrdersConfirmed();
         }
 
     }
