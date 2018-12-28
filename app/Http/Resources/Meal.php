@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Resources;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Resources\Json\Resource;
 
 class Meal extends Resource
 
@@ -18,10 +18,4 @@ class Meal extends Resource
             'total_price_preview' => $this->total_price_preview
         ];
     }
-    public function orders(){
-		return $this->hasMany('App\Order','meal_id','id');
-    }
-    public function user(){
-		return $this->belongsTo('App\User','responsible_waiter_id','id');
-	}
 }

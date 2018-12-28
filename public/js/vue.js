@@ -57297,25 +57297,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             showSuccess: false,
             successMessage: '',
             currentUser: null,
-            ordersPending: [],
-            ordersConfirmed: [],
+            ordersWaiter: [],
             errors: {}
         };
         errors: {}
     },
     methods: {
-        getOrdersPending: function getOrdersPending() {
+        getOrdersWaiter: function getOrdersWaiter() {
             var _this = this;
 
-            axios.get('api/ordersPending').then(function (response) {
-                _this.ordersPending = response.data.data;
-            });
-        },
-        getOrdersConfirmed: function getOrdersConfirmed() {
-            var _this2 = this;
-
-            axios.get('api/ordersConfirmed').then(function (response) {
-                _this2.ordersConfirmed = response.data.data;
+            axios.get('api/ordersWaiter').then(function (response) {
+                _this.ordersWaiter = response.data.data;
             });
         },
         childMessage: function childMessage(message) {
@@ -57327,8 +57319,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         'order-list': __WEBPACK_IMPORTED_MODULE_0__orderList_vue___default.a
     },
     mounted: function mounted() {
-        this.getOrdersPending();
-        this.getOrdersConfirmed();
+        this.getOrdersWaiter();
     }
 });
 
@@ -57470,7 +57461,7 @@ exports.push([module.i, "\n#ordersConfirmed{\r\n\tcolor: green !important;\n}\n#
 //
 
 module.exports = {
-	props: ["ordersPending", "ordersConfirmed"],
+	props: ["ordersWaiter"],
 	data: function data() {
 		return {
 			editingOrder: null
@@ -57479,7 +57470,6 @@ module.exports = {
 	methods: {},
 	mounted: function mounted() {
 		console.log("asdasd");
-		console.log(ordersConfirmed);
 	}
 };
 
@@ -57491,88 +57481,74 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("table", { staticClass: "table table-striped" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "tbody",
-      [
-        _vm._l(_vm.ordersConfirmed, function(orderConfirmed) {
-          return _c(
-            "tr",
-            { key: orderConfirmed.id, attrs: { id: "ordersConfirmed" } },
-            [
-              _c("td", [_vm._v(_vm._s(orderConfirmed.id))]),
+  return _c(
+    "table",
+    { staticClass: "table table-striped" },
+    [
+      _c("thead", [
+        _vm.ordersWaiter.length > 0
+          ? _c("tr", [
+              _c("th", [_vm._v("ID")]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(orderConfirmed.state))]),
+              _c("th", [_vm._v("State")]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(orderConfirmed.item_id))]),
+              _c("th", [_vm._v("Item id")]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(orderConfirmed.meal_id))]),
+              _c("th", [_vm._v("Meal id")]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(orderConfirmed.responsible_cook_id))]),
+              _c("th", [_vm._v("Responsible Cook")]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(orderConfirmed.start))]),
+              _c("th", [_vm._v("Start")]),
               _vm._v(" "),
-              _c("td", [_vm._v("NULL")])
-            ]
-          )
-        }),
-        _vm._v(" "),
-        _vm.ordersPending.length <= 0
-          ? _c("tr", { attrs: { id: "ordersPending" } }, [
-              _c("td", [_vm._v("Não existem registos para pending orders")])
+              _c("th", [_vm._v("End")])
             ])
-          : _vm._l(_vm.ordersPending, function(orderPending) {
-              return _c(
-                "tr",
-                { key: orderPending.id, attrs: { id: "ordersPending" } },
-                [
-                  _c("td", [_vm._v(_vm._s(orderPending.id))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(orderPending.state))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(orderPending.item_id))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(orderPending.meal_id))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(orderPending.responsible_cook_id))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(orderPending.start))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("NULL")])
-                ]
-              )
-            })
-      ],
-      2
-    )
-  ])
+          : _c("tr", [_c("td", [_vm._v("Não existem registos para orders")])])
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.ordersWaiter, function(orderWaiter) {
+        return _c("tbody", { key: orderWaiter.id }, [
+          orderWaiter.state == "confirmed"
+            ? _c("tr", { attrs: { id: "ordersConfirmed" } }, [
+                _c("td", [_vm._v(_vm._s(orderWaiter.id))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(orderWaiter.state))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(orderWaiter.item_id))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(orderWaiter.meal_id))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(orderWaiter.responsible_cook_id))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(orderWaiter.start))]),
+                _vm._v(" "),
+                _c("td", [_vm._v("NULL")])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          orderWaiter.state == "pending"
+            ? _c("tr", { attrs: { id: "ordersPending" } }, [
+                _c("td", [_vm._v(_vm._s(orderWaiter.id))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(orderWaiter.state))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(orderWaiter.item_id))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(orderWaiter.meal_id))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(orderWaiter.responsible_cook_id))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(orderWaiter.start))]),
+                _vm._v(" "),
+                _c("td", [_vm._v("NULL")])
+              ])
+            : _vm._e()
+        ])
+      })
+    ],
+    2
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("ID")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("State")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Item id")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Meal id")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Responsible Cook")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Start")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("End")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -57617,10 +57593,7 @@ var render = function() {
       _vm._v(" "),
       _c("order-list", {
         ref: "ordersListRef",
-        attrs: {
-          ordersConfirmed: _vm.ordersConfirmed,
-          ordersPending: _vm.ordersPending
-        },
+        attrs: { ordersWaiter: _vm.ordersWaiter },
         on: { message: _vm.childMessage }
       }),
       _vm._v(" "),

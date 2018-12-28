@@ -20,7 +20,4 @@ class Order extends Resource
             'end' => $this->end
         ];
     }
-    public function meal(){
-		return $this->belongsTo('App\Meal','meal_id','id');
-    }
 }

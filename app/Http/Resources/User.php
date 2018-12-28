@@ -1,16 +1,12 @@
 <?php
 
 namespace App\Http\Resources;
-use App\Meal;
-use App\Order;
 use Illuminate\Http\Resources\Json\Resource;
-use Illuminate\Database\Eloquent\Model;
 
 
 class User extends Resource
 
 {
-    
     public function toArray($request)
     {
         return [
@@ -26,8 +22,5 @@ class User extends Resource
             'last_shift_start' => $this->last_shift_start,
             'last_shift_end' => $this->last_shift_end
         ];
-    }
-    public function meals(){
-		return $this->hasMany('App\Meal','responsible_waiter_id','id');
     }
 }

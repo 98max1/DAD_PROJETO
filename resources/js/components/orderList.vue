@@ -1,7 +1,7 @@
 <template>
 	<table class="table table-striped">
     	<thead>
-	        <tr>
+	        <tr  v-if="ordersWaiter.length > 0">
 	            <th>ID</th>
 	            <th>State</th>
 	            <th>Item id</th>
@@ -10,29 +10,29 @@
 	            <th>Start</th>
 				<th>End</th>
 	        </tr>
-	    </thead>
-	    <tbody>
-			<tr id="ordersConfirmed"  v-for="orderConfirmed in ordersConfirmed" :key ="orderConfirmed.id">
-				<td>{{orderConfirmed.id}}</td>
-				<td>{{orderConfirmed.state}}</td>
-				<td>{{orderConfirmed.item_id}}</td>
-				<td>{{orderConfirmed.meal_id}}</td>
-				<td>{{orderConfirmed.responsible_cook_id}}</td>
-				<td>{{orderConfirmed.start}}</td>
-				<td>NULL</td>
-			</tr>  
-			<tr id="ordersPending" v-if="ordersPending.length <= 0">
-				<td>Não existem registos para pending orders</td>
+			<tr v-else>
+				<td>Não existem registos para orders</td>
 			</tr>
-			<tr id="ordersPending" v-else v-for="orderPending in ordersPending" :key ="orderPending.id">
-				<td>{{orderPending.id}}</td>
-				<td>{{orderPending.state}}</td>
-				<td>{{orderPending.item_id}}</td>
-				<td>{{orderPending.meal_id}}</td>
-				<td>{{orderPending.responsible_cook_id}}</td>
-				<td>{{orderPending.start}}</td>
-				<td>NULL</td>
-			</tr>  
+	    </thead>
+	    <tbody v-for="orderWaiter in ordersWaiter" :key ="orderWaiter.id">
+				<tr id="ordersConfirmed" v-if="orderWaiter.state == 'confirmed'">
+					<td>{{orderWaiter.id}}</td>
+					<td>{{orderWaiter.state}}</td>
+					<td>{{orderWaiter.item_id}}</td>
+					<td>{{orderWaiter.meal_id}}</td>
+					<td>{{orderWaiter.responsible_cook_id}}</td>
+					<td>{{orderWaiter.start}}</td>
+					<td>NULL</td>
+				</tr>
+				<tr  id="ordersPending" v-if="orderWaiter.state == 'pending'">
+					<td>{{orderWaiter.id}}</td>
+					<td>{{orderWaiter.state}}</td>
+					<td>{{orderWaiter.item_id}}</td>
+					<td>{{orderWaiter.meal_id}}</td>
+					<td>{{orderWaiter.responsible_cook_id}}</td>
+					<td>{{orderWaiter.start}}</td>
+					<td>NULL</td>
+				</tr>
 	</tbody>
 	</table>
 	
@@ -41,7 +41,7 @@
 
 <script>
 	module.exports ={
-	props:["ordersPending","ordersConfirmed"],
+	props:["ordersWaiter"],
 		data: function(){
 			return{
 				editingOrder: null
@@ -51,7 +51,6 @@
 		},
 		mounted(){
 			console.log("asdasd");
-			console.log(ordersConfirmed);
 		}
 	}
 

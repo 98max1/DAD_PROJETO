@@ -44,8 +44,7 @@ Route::get('meals/mealActive', 'MealControllerAPI@mealActive');
 Route::post('meals', 'MealControllerAPI@store');
 
 //Route::get('orders', 'OrderControllerAPI@index');
-Route::get('ordersConfirmed', 'OrderControllerAPI@ordersConfirmed');
-Route::get('ordersPending', 'OrderControllerAPI@ordersPending');
+Route::get('ordersWaiter', 'OrderControllerAPI@ordersWaiter');
 Route::post('orders', 'OrderControllerAPI@store');
 
                         

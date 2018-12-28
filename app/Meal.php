@@ -23,10 +23,9 @@ class Meal extends Model
      * @var array
      */
     public function orders(){
-		return $this->hasMany('App\Order','meal_id','id');
+		  return $this->hasMany('App\Order','meal_id','id');
     }
     public function user(){
-    return $this->belongsTo('App\User','responsible_waiter_id','id');
-
+      return $this->belongsTo('App\User','id','responsible_waiter_id');
 	}
 }

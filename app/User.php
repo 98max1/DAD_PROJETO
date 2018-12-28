@@ -2,6 +2,7 @@
 namespace App;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -17,6 +18,6 @@ class User extends Authenticatable
     ];
 
     public function meals(){
-		return $this->hasMany('App\Meal','responsible_waiter_id','id');
+		return $this->hasMany('App\Meal','responsible_waiter_id');
     }
 }

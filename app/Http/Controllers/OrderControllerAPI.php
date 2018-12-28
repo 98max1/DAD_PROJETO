@@ -24,26 +24,17 @@ class OrderControllerAPI extends Controller
 		}
 	}
 
-	public function ordersPending(Request $request)
-	{
-		return OrderResource::collection(Order::select()
-			->where('state','=','pending')
-			->get());
-	}
-	public function ordersConfirmed(Request $request)
+	public function ordersWaiter(Request $request)
 	{
 		$user =  \Auth::guard('api')->user();
-		$meals = $user->meals();
+		$meals = $user->meals;
 		$orders_total = null;
 		foreach($meals as $meal){
-			$orders_total[] = $meal->orders();
+			if(!strcmp($meal->state, 'active')) 
+				$orders_total[] = $meal->orders;
 		}
-
-		/*return OrderResource::collection(Order::select()
-			->where('state','=','confirmed')
-			->get());*/
-		//return response()->json($orders_total,200);
-		return $orders_total;
+		
+		return OrderResource::collection($orders_total[0]);
 	}
 
 	public function store(Request $request)

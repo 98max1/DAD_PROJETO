@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <order-list :ordersConfirmed="ordersConfirmed" :ordersPending="ordersPending" @message="childMessage" ref="ordersListRef"></order-list>
+        <order-list :ordersWaiter="ordersWaiter" @message="childMessage" ref="ordersListRef"></order-list>
 
         <div class="alert alert-success" v-if="showSuccess">             
             <button type="button" class="close-btn" v-on:click="showSuccess=false">&times;</button>
@@ -30,20 +30,15 @@
                 showSuccess: false,
                 successMessage: '',
                 currentUser: null,
-                ordersPending: [],
-                ordersConfirmed: [],
+                ordersWaiter: [],
                 errors:{},
             }
             errors:{}
         },
         methods: {
-            getOrdersPending: function(){
-                axios.get('api/ordersPending')
-                    .then(response=>{this.ordersPending = response.data.data; });
-            },
-            getOrdersConfirmed: function(){
-                axios.get('api/ordersConfirmed')
-                    .then(response=>{this.ordersConfirmed = response.data.data; });
+            getOrdersWaiter: function(){
+                axios.get('api/ordersWaiter')
+                    .then(response=>{this.ordersWaiter = response.data.data; });
             },
             childMessage: function(message){
                 this.showSuccess = true;
@@ -54,8 +49,7 @@
             'order-list': OrderList,
         },
         mounted() {
-            this.getOrdersPending();
-            this.getOrdersConfirmed();
+            this.getOrdersWaiter();
         }
 
     }
