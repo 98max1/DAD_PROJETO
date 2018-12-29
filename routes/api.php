@@ -40,7 +40,9 @@ Route::patch('shiftEnd/{id}', 'ShiftControllerAPI@shiftEnd');
 
 Route::get('meals', 'MealControllerAPI@index');
 
-                        
+//******************************************************************************
+//Route::middleware('auth:api')->
+//*******************************************************************************
 
 /*
 Caso prefiram usar Resource Routes para o user, podem implementar antes as rotas:

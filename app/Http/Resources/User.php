@@ -3,11 +3,10 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Resource
-
 {
-    
+    use SoftDeletes;
     public function toArray($request)
     {
         return [
@@ -24,4 +23,5 @@ class User extends Resource
             'last_shift_end' => $this->last_shift_end
         ];
     }
+    protected $dates = ['deleted_at'];
 }
