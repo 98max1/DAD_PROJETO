@@ -18,13 +18,14 @@ use Hash;
 
 class UserControllerAPI extends Controller
 {
+    //public function index(Request $request)
     public function index(Request $request)
     {
-        if ($request->has('page')) {
-            return UserResource::collection(User::paginate(5));
-        } else {
-            return UserResource::collection(User::all());
-        }
+        //return Input::get('order');
+            return UserResource::collection(User::withTrashed()->orderBy('id',"asc")->paginate(5));
+       // } else {
+           // return UserResource::collection(User::all());
+        //}
 
         /*Caso não se pretenda fazer uso de Eloquent API Resources (https://laravel.com/docs/5.5/eloquent-resources), é possível implementar com esta abordagem:
         if ($request->has('page')) {
@@ -32,11 +33,14 @@ class UserControllerAPI extends Controller
         } else {
             return User::with('department')->get();
         }*/
+        //$users= UserResource::collection(User::paginate(5));
+        $users= User::orderBy("id","DESC")->paginate(5);
+        return response()->json($users);
     }
 
     public function show($id)
     {
-        return new UserResource(User::find($id));
+        return User::findOrFail($id);
     }
 
     public function store(Request $request)
@@ -81,13 +85,12 @@ class UserControllerAPI extends Controller
 
     public function update(Request $request, $id)
     {
-        /*if ($request->name||$request->username||) {
-            # code...
-        }*/
+        
         $request->validate([
                 'name' => 'nullable|min:3|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
                 'username' => 'nullable|min:2',
-                'email' => 'nullable|email'
+                'email' => 'nullable|email',
+                'type' => 'nullable'
             ]);
         $user = User::findOrFail($id);
         if ($request->has('password')) {
@@ -102,8 +105,20 @@ class UserControllerAPI extends Controller
         if (!is_null($request->username)) {
             $user->username=$request->username;
         }
+        if (!is_null($request->type)) {
+            if ($request->type=="manager" ||$request->type=="waiter"||$request->type=="cook"||$request->type=="cashier") {
+                $user->type=$request->type;
+            }
+        }
         if (!is_null($request->email)) {
             $user->email=$request->email;
+        }
+        if (!is_null($request->blocked)) {
+            if ($request->blocked==0 || $request->blocked==1) {
+                if ($user->blocked!=$request->blocked) {
+                    $user->blocked=$request->blocked;
+                }
+            }
         }
         $user->save();
         return response()->json($user,201);
@@ -133,9 +148,14 @@ class UserControllerAPI extends Controller
 
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
-        return response()->json(null, 204);
+        if ($id!=\Auth::guard('api')->user()->id) {
+            $user = User::findOrFail($id);
+            if($user->forceDelete()){
+                return response()->json(null, 204);
+            }
+           $user->delete();
+        }
+        return response()->json(null,401);
     }
     public function emailAvailable(Request $request)
     {

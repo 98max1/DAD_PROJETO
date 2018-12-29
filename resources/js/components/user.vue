@@ -3,13 +3,20 @@
         <div class="jumbotron">
             <h1>{{ title }}</h1>
         </div>
+        
         <user-list :users="users" @edit-click="editUser" @delete-click="deleteUser" @message="childMessage" ref="usersListRef"></user-list>
-        <user-edit v-show ="this.$store.state.user.type=='manager'" :user="currentUser" @user-saved="savedUser" @user-canceled="cancelEdit" v-if="currentUser"></user-edit>                
+        <div class="pagination" >             
+            <button class="btn btn-default" v-on:click="fetchPaginateUsers(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">Prevous</button>
+            <span>Page {{pagination.current_page}} of {{pagination.last_page}}</span>
+            <button class="btn btn-default" v-on:click="fetchPaginateUsers(pagination.next_page_url)" :disabled="!pagination.next_page_url">Next</button>
+        </div>
+        <user-edit v-show ="this.$store.state.user.type=='manager'" :user="currentUser" @user-saved="savedUser" @user-canceled="cancelEdit" v-if="currentUser"></user-edit>
 
         <div class="alert alert-success" v-if="showSuccess">             
             <button type="button" class="close-btn" v-on:click="showSuccess=false">&times;</button>
             <strong>{{ successMessage }}</strong>
         </div>
+
     </div>              
 </template>
 
@@ -25,6 +32,8 @@
                 successMessage: '',
                 currentUser: null,
                 users: [],
+                pagination:[],
+                url:'/api/users'
             }
         },
         methods: {
@@ -57,12 +66,30 @@
                 this.showSuccess = false;
             },
             getUsers: function(){
-                axios.get('api/users')
-                    .then(response=>{this.users = response.data.data; });
+                let $this=this;
+                axios.get(this.url)
+                    .then(response=>{
+                        this.users = response.data.data; 
+                        $this.makePagination(response.data);
+                    });
             },
+            
             childMessage: function(message){
                 this.showSuccess = true;
                 this.successMessage = message;
+            },
+            makePagination(data){
+                let pagination={
+                    current_page: data.meta.current_page,
+                    last_page: data.meta.last_page,
+                    next_page_url: data.links.next,
+                    prev_page_url: data.links.prev
+                }
+                this.pagination=pagination;
+            },
+            fetchPaginateUsers(url){
+                this.url=url;
+                this.getUsers();
             }
         },
         components: {

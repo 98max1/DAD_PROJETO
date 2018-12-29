@@ -52,7 +52,9 @@ Route::patch('orderDeliver/{id}', 'OrderControllerAPI@orderDeliver');
 Route::delete('orderDelete/{id}', 'OrderControllerAPI@orderDelete');
 Route::get('orderItem/{id}', 'ItemControllerAPI@orderItem');
 
-                        
+//******************************************************************************
+//Route::middleware('auth:api')->
+//*******************************************************************************
 
 /*
 Caso prefiram usar Resource Routes para o user, podem implementar antes as rotas:
