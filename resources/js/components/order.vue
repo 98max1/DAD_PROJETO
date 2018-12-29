@@ -1,5 +1,10 @@
 <template>
     <div>
+        <div class="alert alert-success" v-if="showSuccess">             
+            <button type="button" class="close-btn" v-on:click="showSuccess=false">&times;</button>
+            <strong>{{ successMessage }}</strong>
+        </div>
+        
         <div class="jumbotron">
             <h1>{{ title }}</h1>
         </div>  
@@ -11,12 +16,8 @@
             </div>
         </div>
 
-        <order-list :ordersWaiter="ordersWaiter" @message="childMessage" ref="ordersListRef"></order-list>
+        <order-list :ordersWaiter="ordersWaiter" @message="childMessage" @order-Deliver="orderDeliver" @order-Delete="orderDelete" ref="ordersListRef"></order-list>
 
-        <div class="alert alert-success" v-if="showSuccess">             
-            <button type="button" class="close-btn" v-on:click="showSuccess=false">&times;</button>
-            <strong>{{ successMessage }}</strong>
-        </div>
     </div>              
 </template>
 
@@ -44,6 +45,14 @@
                 this.showSuccess = true;
                 this.successMessage = message;
             },
+            orderDeliver: function(){
+	            this.showSuccess = true;
+                this.successMessage = 'Order Deliver';
+            }, 
+            orderDelete: function(){
+	            this.showSuccess = true;
+                this.successMessage = 'Order Deleted';
+            }
         },
         components: {
             'order-list': OrderList,

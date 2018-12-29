@@ -4,7 +4,7 @@
 	    <div class="form-group">
 	        <label class="label-center">Item Picture (click on the picture to select a new one)</label>
 	        <input style="display:none" type="file" @change="onFileSelected" ref="fileInput"> 
-	        <img @click="$refs.fileInput.click()"type="img" class="img-circle" name="photo" placeholder="IMG" :src="'storage/items/'+item.photo_url" >
+	        <img @click="$refs.fileInput.click()" type="img" class="img-circle" name="photo" placeholder="IMG" :src="'storage/items/'+item.photo_url" >
 	        <button class="btn btn-primary label-center" @click="onUpload">Upload</button>
 	    </div>
 	    <div class="form-group">

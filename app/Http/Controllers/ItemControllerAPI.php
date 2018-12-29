@@ -9,6 +9,7 @@ use App\Http\Resources\Item as ItemResource;
 use Illuminate\Support\Facades\DB;
 
 use App\Item;
+use App\Order;
 use App\StoreItemRequest;
 
 class ItemControllerAPI extends Controller
@@ -39,7 +40,17 @@ class ItemControllerAPI extends Controller
         $user->save();
         \Mail::to($user)->send(new Welcome);
         return response()->json($user, 201);
-    }
+	}
+	public function orderItem(Request $request,$id){
+		$order = Order::findOrFail($id);
+		return ItemResource::collection( Item::select()
+			->where('id','=',$order->id)
+			->get());	
+		//$orders = $meal->order;
+		//return OrderResource::collection($orders);
+		//return OrderResource::collection($orders_total[0]);
+	}
+
     public function update(Request $request, $id)
     {
         
@@ -67,5 +78,4 @@ class ItemControllerAPI extends Controller
         $item->save();
         return response()->json($item,201);
     }
-
 } 
