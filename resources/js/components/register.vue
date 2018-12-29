@@ -54,6 +54,7 @@
 	            <option v-bind:value="0"> 0 (Free) </option>
 	        </select>
 	    </div>
+		
 
 	    <div class="form-group">
 	        <a class="btn btn-primary" v-on:click.prevent="register()">Register</a>

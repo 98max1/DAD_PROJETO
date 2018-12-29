@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\Resource;
 
-class Meal extends Resource
+
+class Order extends Resource
 
 {
     
@@ -11,11 +13,11 @@ class Meal extends Resource
         return [
             'id' => $this->id,
             'state' => $this->state,
-            'table_number' => $this->table_number,
+            'item_id' => $this->item_id,
+            'meal_id' => $this->meal_id,
+            'responsible_cook_id' => $this->responsible_cook_id,
             'start' => $this->start,
-            'end' => $this->end,
-            'responsible_waiter_id' => $this->responsible_waiter_id,
-            'total_price_preview' => $this->total_price_preview
+            'end' => $this->end
         ];
     }
 }

@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Resources;
-
 use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
+
 class User extends Resource
 {
     use SoftDeletes;

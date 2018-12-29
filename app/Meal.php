@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Database\Eloquent\Model;
 
 class Meal extends Model
@@ -14,7 +14,7 @@ class Meal extends Model
      * @var array
      */
     protected $fillable = [
-        'state', 'table_number','start','end','responsible_waiter_id','total_price_preview'
+        'id','state', 'table_number','start','end','responsible_waiter_id','total_price_preview'
     ];
 
     /**
@@ -22,4 +22,10 @@ class Meal extends Model
      *
      * @var array
      */
+    public function orders(){
+		  return $this->hasMany('App\Order','meal_id','id');
+    }
+    public function user(){
+      return $this->belongsTo('App\User','id','responsible_waiter_id');
+	}
 }

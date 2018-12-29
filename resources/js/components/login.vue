@@ -61,10 +61,12 @@
                         this.showMessage = true;
                         this.$router.push('/');
                     })
-                    .catch(error => {
+                    .catch(error => { 
                         this.$store.commit('clearUserAndToken');
                         this.typeofmsg = "alert-danger";
-                        this.message = "Invalid credentials";
+                        console.log("merdaaaaaaa")
+                        console.log(error)
+                       //this.message = msg.data;
                         this.showMessage = true;
                         console.log(error);
                     })
