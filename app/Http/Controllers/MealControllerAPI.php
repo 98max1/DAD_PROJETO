@@ -75,7 +75,6 @@ class MealControllerAPI extends Controller
 	public function store(Request $request)
     {
 		try{
-			error_log('Some message here.');
 			$request->validate([
 					'table_number' => 'required',
 					'total_price_preview' => 'required'
