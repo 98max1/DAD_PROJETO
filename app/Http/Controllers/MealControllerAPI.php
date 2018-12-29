@@ -22,6 +22,10 @@ class MealControllerAPI extends Controller
 			return MealResource::collection(Meal::all());
 		}
 	}
+	public function dashInfo(Request $request)
+	{
+		return MealResource::collection(Meal::select()->where('state','=','active')->orWhere('state','=','terminated')->get());
+	}
 	public function mealActive(Request $request){
 
 		/*$meal_check = Meal::select()
