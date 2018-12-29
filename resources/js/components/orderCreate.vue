@@ -81,7 +81,7 @@
 
 			},
 			created(){
-				axios.get('api/items')
+				axios.get('api/itemsAll')
 					.then(response=>{this.items = response.data.data; });
 				
 				axios.get('api/meals')

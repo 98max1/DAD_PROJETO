@@ -44,6 +44,9 @@ Route::get('meals/mealActive', 'MealControllerAPI@mealActive');
 Route::patch('terminateMeal/{id}', 'MealControllerAPI@terminateMeal');
 
 Route::post('meals', 'MealControllerAPI@store');
+Route::get('itemsAll', 'ItemControllerAPI@itemsAll');
+
+
 
 //Route::get('orders', 'OrderControllerAPI@index');
 Route::get('ordersWaiter', 'OrderControllerAPI@ordersWaiter');

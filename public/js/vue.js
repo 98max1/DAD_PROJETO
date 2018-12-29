@@ -75049,7 +75049,7 @@ module.exports = {
 	created: function created() {
 		var _this2 = this;
 
-		axios.get('api/items').then(function (response) {
+		axios.get('api/itemsAll').then(function (response) {
 			_this2.items = response.data.data;
 		});
 

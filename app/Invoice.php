@@ -4,7 +4,7 @@ namespace App;
 use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Database\Eloquent\Model;
 
-class Meal extends Model
+class Invoice extends Model
 {
 
 
