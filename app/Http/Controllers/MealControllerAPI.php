@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use App\Meal;
 use App\Order;
 use App\Invoice;
+use App\Invoice_item;
+use App\Item;
 use App\StoreItemRequest;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -64,8 +66,16 @@ class MealControllerAPI extends Controller
 				$orderr->state = 'not delivered';
 				$orderr->save();
 			}
+			$invoice_item = new Invoice_item();
+			$invoice_item->invoice_id = $invoice->id;
+			$invoice_item->item_id = $orderr->item_id;
+			$invoice_item->quantity = 1;
+			$itemForPrice = Item::findOrFail($orderr->item_id);
+			$invoice_item->quantity = 1;
+			$invoice_item->unit_price = $itemForPrice->price;
+			$invoice_item->sub_total_price = $itemForPrice->price;
+			$invoice_item->save();
 		}
-		
 		$meal->save();
 		return response()->json($meal,200);
 	}

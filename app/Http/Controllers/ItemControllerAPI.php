@@ -49,7 +49,13 @@ class ItemControllerAPI extends Controller
 		//$orders = $meal->order;
 		//return OrderResource::collection($orders);
 		//return OrderResource::collection($orders_total[0]);
-	}
+    }
+    public function itemsAll(Request $request){
+		return ItemResource::collection(Item::all());
+		//$orders = $meal->order;
+		//return OrderResource::collection($orders);
+		//return OrderResource::collection($orders_total[0]);
+    }
 
     public function update(Request $request, $id)
     {
