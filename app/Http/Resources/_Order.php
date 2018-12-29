@@ -1,17 +1,8 @@
 <?php
-
 namespace App\Http\Resources;
-
-use Illuminate\Http\Resources\Json\JsonResource;
-
-class Order extends JsonResource
+use Illuminate\Http\Resources\Json\Resource;
+class Order extends Resource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
     public function toArray($request)
     {
         return [
@@ -23,5 +14,11 @@ class Order extends JsonResource
             'start' => $this->start,
             'end' => $this->end
         ];
+    }
+    public function meal(){
+		return $this->belongsTo('App\Meal','meal_id','id');
+    }
+    public function item(){
+        return $this->belongsTo('App\Item','item_id','id');
     }
 }

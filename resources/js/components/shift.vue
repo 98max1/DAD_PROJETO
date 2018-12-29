@@ -42,7 +42,6 @@
 	            this.showSuccess = true;
                 this.successMessage = 'Shift alterado';
             }, 
-
             shiftStart: function(){
                 this.currentUser = null;
 	            this.showSuccess = true;

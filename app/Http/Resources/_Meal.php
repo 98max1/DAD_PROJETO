@@ -20,8 +20,9 @@ class Meal extends JsonResource
             'table_number' => $this->table_number,
             'start' => $this->start,
             'end' => $this->end,
-            'responsible_waiter_id' => $this->responsible_waiter_id,
-            'total_price_preview' => $this->total_price_preview
+            'total_price_preview' => $this->total_price_preview,
+            'responsible_waiter' => new UserResource($this->user),
+            'orders' => OrderResource::collection($this->orders),
         ];
     }
 }

@@ -2,6 +2,11 @@
 <template>
 	<div class="jumbotron">
 		<h2>Register Order</h2>
+		<div class="alert" :class="typeofmsg" v-if="showMessage">             
+            <button type="button" class="close-btn" v-on:click="showMessage=false">&times;</button>
+            <strong>{{ message }}</strong>
+        </div>
+
 	    <table class="table table-striped">
 			<tbody>
 				<div class="form-group">
@@ -79,7 +84,7 @@
 				axios.get('api/items')
 					.then(response=>{this.items = response.data.data; });
 				
-				axios.get('api/meals/mealActive')
+				axios.get('api/meals')
 					.then(response=>{this.meals = response.data.data; });				
 			},
 			mounted() {

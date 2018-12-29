@@ -21,6 +21,9 @@ class Order extends Model
      * @var array
      */
     public function meal(){
-		return $this->belongsTo('App\Meal','meal_id','id');
+        return $this->belongsTo('App\Meal','meal_id','id');
+    }
+    public function item(){
+        return $this->belongsTo('App\Item','item_id','id');
     }
 }

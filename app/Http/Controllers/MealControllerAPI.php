@@ -8,6 +8,8 @@ use App\Http\Resources\Meal as MealResource;
 use Illuminate\Support\Facades\DB;
 
 use App\Meal;
+use App\Order;
+use App\Invoice;
 use App\StoreItemRequest;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -16,11 +18,19 @@ class MealControllerAPI extends Controller
 {
 	public function index(Request $request)
 	{
-		if($request->has('page')){
+		/*if($request->has('page')){
 			return MealResource::collection(Meal::paginate(10));
 		}else{
 			return MealResource::collection(Meal::all());
-		}
+		}*/
+
+		$user =  \Auth::guard('api')->user();
+
+		return MealResource::collection(Meal::select()
+			->where('state','=','active')
+			->where('responsible_waiter_id','=',$user->id)
+			->get());	
+
 	}
 	public function mealActive(Request $request){
 
@@ -30,9 +40,37 @@ class MealControllerAPI extends Controller
 						->get(); */
 		return MealResource::collection( Meal::select()
 			->where('state','=','active')
-			->where('responsible_waiter_id','=',\Auth::guard('api')->user()->id)
+			->where('responsible_waiter_id','=',$user->id)
 			->get());	
 	}
+
+	public function terminateMeal(Request $request,$id){
+
+		$meal = Meal::findOrFail($id);
+        $meal->state = 'terminated';
+        //$user->last_shift_Start = new Datetime();
+		$invoice = new Invoice();
+		$invoice->meal_id = $meal->id;
+		$invoice->state = 'pending';
+		$invoice->date = date('Y-m-d H:i:s');
+		$invoice->total_price = $meal->total_price_preview;
+		$invoice->save();
+		$orders = Order::select()
+			->where('meal_id','=',$id)
+			->get();
+		foreach($orders as $order){
+			if($order != 'delivered'){
+				$orderr=Order::findOrFail($order->id);
+				$orderr->state = 'not delivered';
+				$orderr->save();
+			}
+		}
+		
+		$meal->save();
+		return response()->json($meal,200);
+	}
+
+	
 
 	public function store(Request $request)
     {

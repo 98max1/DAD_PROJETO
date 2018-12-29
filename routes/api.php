@@ -39,13 +39,18 @@ Route::patch('shiftStart/{id}', 'ShiftControllerAPI@shiftStart');
 Route::patch('shiftEnd/{id}', 'ShiftControllerAPI@shiftEnd');
 
 Route::get('meals', 'MealControllerAPI@index');
+Route::get('mealsSummary/{id}', 'OrderControllerAPI@ordersFromMeal');
 Route::get('meals/mealActive', 'MealControllerAPI@mealActive');
+Route::patch('terminateMeal/{id}', 'MealControllerAPI@terminateMeal');
 
 Route::post('meals', 'MealControllerAPI@store');
 
 //Route::get('orders', 'OrderControllerAPI@index');
 Route::get('ordersWaiter', 'OrderControllerAPI@ordersWaiter');
 Route::post('orders', 'OrderControllerAPI@store');
+Route::patch('orderDeliver/{id}', 'OrderControllerAPI@orderDeliver');
+Route::delete('orderDelete/{id}', 'OrderControllerAPI@orderDelete');
+Route::get('orderItem/{id}', 'ItemControllerAPI@orderItem');
 
                         
 
