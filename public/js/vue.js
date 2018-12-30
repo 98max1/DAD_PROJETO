@@ -56902,7 +56902,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -56911,7 +56911,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /* 129 */
 /***/ (function(module, exports) {
 
-//
 //
 //
 //
@@ -56993,9 +56992,9 @@ var render = function() {
             _vm._v(" "),
             _c("th", [_vm._v("Start")]),
             _vm._v(" "),
-            _c("th", [_vm._v("End")]),
-            _vm._v(" "),
             _c("th", [_vm._v("Responsible Waiter")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Total Price Preview")]),
             _vm._v(" "),
             _c("th", [_vm._v("Actions")])
           ])
@@ -57017,8 +57016,6 @@ var render = function() {
                 _c("td", [_vm._v(_vm._s(meal.table_number))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(meal.start))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(meal.end))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(meal.responsible_waiter_id))]),
                 _vm._v(" "),
@@ -57199,8 +57196,6 @@ exports.push([module.i, "\n.label[data-v-3fdc53e8]{\r\n\tcolor: red,\n}\n.img-ci
 //
 //
 //
-//
-//
 
 module.exports = {
 	props: ['orders', 'table', 'price'],
@@ -57245,47 +57240,40 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
       _c("table", { staticClass: "table table-striped" }, [
-        _c("thead", [
-          _vm.orders.length > 0
-            ? _c("tr", [
-                _c("th", [_vm._v("ID")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Table number")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Name Product")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Price")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Total Price")])
-              ])
-            : _c("tr", [
-                _c("td", [_vm._v("Não existem orders da meal selecionada")])
-              ])
-        ]),
+        _c(
+          "thead",
+          [
+            _c("h7", [_vm._v("Total preco da meal: " + _vm._s(_vm.price))]),
+            _vm._v(" "),
+            _vm.orders.length > 0
+              ? _c("tr", [
+                  _c("th", [_vm._v("ID")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Table number")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Name Product")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Price")])
+                ])
+              : _c("tr", [
+                  _c("td", [_vm._v("Não existem orders da meal selecionada")])
+                ])
+          ],
+          1
+        ),
         _vm._v(" "),
         _c(
           "tbody",
           _vm._l(_vm.orders, function(order) {
             return _vm.orders.length > 0
               ? _c("tr", { key: order.id }, [
-                  _c("td", [_vm._v(_vm._s(order.it_id))]),
+                  _c("td", [_vm._v(_vm._s(order.id))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(_vm.table))]),
                   _vm._v(" "),
-                  _vm.check > 0
-                    ? _c("td", [
-                        _vm._v(_vm._s(_vm.getName(order)) + _vm._s(_vm.item))
-                      ])
-                    : _vm._e(),
+                  _c("td"),
                   _vm._v(" "),
-                  _vm.check > 0
-                    ? _c("td", [
-                        _vm._v(_vm._s(_vm.getPrice(order)) + _vm._s(_vm.item))
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(_vm.price))]),
-                  _vm._v("\n\t\t\t\t\tthis\n\t\t\t\t")
+                  _c("td")
                 ])
               : _vm._e()
           })
@@ -58102,7 +58090,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -58185,6 +58173,9 @@ module.exports = {
 				_this.message = _this.error;
 				_this.showMessage = true;
 			});
+		},
+		cancelRegister: function cancelRegister() {
+			this.$router.push('/meals');
 		}
 
 	},
@@ -58667,10 +58658,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 module.exports = {
 	props: ["ordersWaiter"],
@@ -58753,8 +58740,6 @@ var render = function() {
                 _vm._v(" "),
                 _c("th", [_vm._v("Meal id")]),
                 _vm._v(" "),
-                _c("th", [_vm._v("Responsible Cook")]),
-                _vm._v(" "),
                 _c("th", [_vm._v("Start")]),
                 _vm._v(" "),
                 _c("th", [_vm._v("End")]),
@@ -58776,8 +58761,6 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(orderWaiter.meal_id))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(orderWaiter.responsible_cook_id))]),
-                  _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(orderWaiter.start))]),
                   _vm._v(" "),
                   _c("td", [_vm._v("NULL")]),
@@ -58795,8 +58778,6 @@ var render = function() {
                   _c("td", [_vm._v(_vm._s(orderWaiter.item_id))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(orderWaiter.meal_id))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(orderWaiter.responsible_cook_id))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(orderWaiter.start))]),
                   _vm._v(" "),
@@ -58832,8 +58813,6 @@ var render = function() {
                   _c("td", [_vm._v(_vm._s(orderWaiter.item_id))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(orderWaiter.meal_id))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(orderWaiter.responsible_cook_id))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(orderWaiter.start))]),
                   _vm._v(" "),
@@ -59038,7 +59017,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -59128,8 +59107,10 @@ module.exports = {
 				_this.message = _this.error;
 				_this.showMessage = true;
 			});
+		},
+		cancelRegister: function cancelRegister() {
+			this.$router.push('/orders');
 		}
-
 	},
 	created: function created() {
 		var _this2 = this;

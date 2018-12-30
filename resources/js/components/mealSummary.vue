@@ -4,12 +4,12 @@
 		<div class="form-group">
 			<table class="table table-striped">
 				<thead>
+					<h7>Total preco da meal: {{price}}</h7>
 					<tr  v-if="orders.length > 0">
 						<th>ID</th>
 						<th>Table number</th>
 						<th>Name Product</th>
 						<th>Price</th>
-						<th>Total Price</th>
 					</tr>
 					<tr v-else>
 						<td>Não existem orders da meal selecionada</td>
@@ -17,12 +17,10 @@
 				</thead>
 				<tbody>
 					<tr v-if="orders.length > 0" v-for="order in orders" :key ="order.id">
-						<td>{{order.it_id}}</td>
+						<td>{{order.id}}</td>
 						<td>{{table}}</td>
-						<td v-if="check > 0">{{getName(order)}}{{item}}</td>
-						<td v-if="check > 0">{{getPrice(order)}}{{item}}</td>
-						<td>{{price}}</td>
-						this
+						<td><!--{{getName(order)}}--></td>
+						<td><!--{{getPrice(order)}}{{item}}--></td>
 					</tr>   
 				</tbody>
 			</table>

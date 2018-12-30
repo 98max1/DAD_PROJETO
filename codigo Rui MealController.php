@@ -67,28 +67,16 @@ class MealControllerAPI extends Controller
 				$orderr->save();
 			}
 			$itemForPrice = Item::findOrFail($orderr->item_id);
-			$invoice_item = Invoice_item::select()
-					->where('item_id',$itemForPrice->id)
-					->where('invoice_id',$invoice->id)
-					->get();
-			//return $invoice_item;
-			$orderr=Order::findOrFail($order->id);
-			if($invoice_item->count() == 0){
-				$invoice_item = new Invoice_item();
-				$invoice_item->invoice_id = $invoice->id;
-				$invoice_item->item_id = $orderr->item_id;
-				$invoice_item->quantity = 1;
-				$invoice_item->unit_price = $itemForPrice->price;
-				$invoice_item->sub_total_price = $itemForPrice->price;
-				$invoice_item->save();
-			}else{
-				$invoice_item = Invoice_item::where('item_id', '=', $itemForPrice->id)->where('invoice_id', '=', $invoice->id)->firstOrFail();
-				DB::table('invoice_items')
-					->where('invoice_id', $invoice->id)
-					->where('item_id', $orderr->item_id)
-					->update(['quantity' => $invoice_item->quantity + 1,'sub_total_price' => $invoice_item->sub_total_price + $itemForPrice->price]);
-			}
-			
+			$invoice_item = Invoice_item::firstOrNew([
+				'invoice_id' => $invoice->id,
+				'item_id' => $itemForPrice->id]);
+
+			$invoice_item->invoice_id = $invoice->id;
+			$invoice_item->item_id = $orderr->item_id;
+			$invoice_item->quantity = ($invoice_item->quantity + 1);
+			$invoice_item->unit_price = ($invoice_item->price + $itemForPrice->price);
+			$invoice_item->sub_total_price =($invoice_item->sub_total_price + $itemForPrice->price);
+			$invoice_item->save(); // :'(
 		}
 		$meal->save();
 		return response()->json($meal,200);

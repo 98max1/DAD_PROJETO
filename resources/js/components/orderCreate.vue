@@ -77,8 +77,10 @@
 	                        this.message = this.error;
 	                        this.showMessage = true;
 						})
-		        }
-
+				},
+				cancelRegister: function(){
+					this.$router.push('/orders');
+				}
 			},
 			created(){
 				axios.get('api/itemsAll')

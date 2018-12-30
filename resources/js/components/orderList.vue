@@ -11,7 +11,6 @@
 					<th>State</th>
 					<th>Item id</th>
 					<th>Meal id</th>
-					<th>Responsible Cook</th>
 					<th>Start</th>
 					<th>End</th>
 					<th>Action</th>
@@ -26,7 +25,6 @@
 						<td>{{orderWaiter.state}}</td>
 						<td>{{orderWaiter.item_id}}</td>
 						<td>{{orderWaiter.meal_id}}</td>
-						<td>{{orderWaiter.responsible_cook_id}}</td>
 						<td>{{orderWaiter.start}}</td>
 						<td>NULL</td>
 						<td>NULL</td>
@@ -36,7 +34,6 @@
 						<td>{{orderWaiter.state}}</td>
 						<td>{{orderWaiter.item_id}}</td>
 						<td>{{orderWaiter.meal_id}}</td>
-						<td>{{orderWaiter.responsible_cook_id}}</td>
 						<td>{{orderWaiter.start}}</td>
 						<td>NULL</td>
 						<td>
@@ -50,7 +47,6 @@
 						<td>{{orderWaiter.state}}</td>
 						<td>{{orderWaiter.item_id}}</td>
 						<td>{{orderWaiter.meal_id}}</td>
-						<td>{{orderWaiter.responsible_cook_id}}</td>
 						<td>{{orderWaiter.start}}</td>
 						<td>NULL</td>
 						<td>
