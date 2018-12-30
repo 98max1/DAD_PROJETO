@@ -34,6 +34,7 @@ class MealControllerAPI extends Controller
 			->get());	
 
 	}
+
 	public function mealActive(Request $request){
 
 		/*$meal_check = Meal::select()
@@ -126,4 +127,10 @@ class MealControllerAPI extends Controller
 		//$meal->save();
         //return response()->json($user, 201);
 	}
+
+	public function dashInfo(Request $request)
+	{
+		return MealResource::collection(Meal::select()->where('state','=','active')->orWhere('state','=','terminated')->get());
+	}
+	
 }

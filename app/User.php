@@ -29,6 +29,12 @@ class User extends Authenticatable
     protected $dates = ['deleted_at'];
     
     public function meals(){
-		return $this->hasMany('App\Meal','responsible_waiter_id');
+        return $this->hasMany('App\Meal','responsible_waiter_id');
+    }    
+    public function isManager(){
+        if ($this->type=='manager') {
+            return true;
+        }
+        return false;
     }
 }

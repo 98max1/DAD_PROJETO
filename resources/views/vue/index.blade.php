@@ -35,6 +35,7 @@
 -->
     <router-link to="/register" v-show="this.$store.state.user && this.$store.state.user.type=='manager'">Register Worker</router-link> #  
     <router-link to="/users" v-show="this.$store.state.user && this.$store.state.user.type=='manager'">Users</router-link> # 
+    <router-link to="/dashboard" v-show="this.$store.state.user && this.$store.state.user.type=='manager'">Dashboard</router-link> # 
     <router-link to="/profile" v-show="this.$store.state.user">Profile</router-link> #
     <router-link to="/shift" v-show="this.$store.state.user">Shift</router-link> #
     <router-link to="/meals" v-show="this.$store.state.user">Meals</router-link> #

@@ -21,7 +21,7 @@ Route::get('/items', 'ItemControllerAPI@index');
 
 //Route::get('departments', 'DepartmentControllerAPI@index');
 Route::get('/shift', 'ShiftControllerAPI@index');
-Route::get('users', 'UserControllerAPI@index');
+Route::middleware('auth.manager')->get('users', 'UserControllerAPI@index');
 Route::get('users/emailavailable', 'UserControllerAPI@emailAvailable');
 Route::middleware('auth:api')->get('users/me', 'UserControllerAPI@myProfile');
 
@@ -31,7 +31,7 @@ Route::get('users/{id}', 'UserControllerAPI@show');
 //Route::middleware('auth:api')->post('users', 'UserControllerAPI@store');
 
 Route::put('users/{id}', 'UserControllerAPI@update');
-Route::delete('users/{id}', 'UserControllerAPI@destroy');
+Route::middleware('auth.manager')->delete('users/{id}', 'UserControllerAPI@destroy');
 
 Route::post('upload/{id}', 'UserControllerAPI@upload')->name('upload');
 
@@ -54,6 +54,8 @@ Route::post('orders', 'OrderControllerAPI@store');
 Route::patch('orderDeliver/{id}', 'OrderControllerAPI@orderDeliver');
 Route::delete('orderDelete/{id}', 'OrderControllerAPI@orderDelete');
 Route::get('orderItem/{id}', 'ItemControllerAPI@orderItem');
+
+Route::get('mealsInfo', 'MealControllerAPI@dashInfo');
 
 //******************************************************************************
 //Route::middleware('auth:api')->

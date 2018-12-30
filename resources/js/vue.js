@@ -30,6 +30,11 @@ Vue.use(new VueSocketio({
     type: 'info',
   });
 
+import { Table } from 'bootstrap-vue/es/components';
+Vue.use(Table);
+
+import { Pagination } from 'bootstrap-vue/es/components';
+Vue.use(Pagination);
 
 const userListComponent = Vue.component('user-list',require('./components/userList.vue'));
 const itemListComponent = Vue.component('item-list', require('./components/itemList.vue'));
@@ -50,6 +55,8 @@ const mealCreate = Vue.component('mealCreate', require('./components/mealCreate.
 
 const order = Vue.component('order', require('./components/order.vue'));
 const orderCreate = Vue.component('orderCreate', require('./components/orderCreate.vue'));
+
+const dashboard = Vue.component('dashboard', require('./components/dashboard.vue'));
 
 const routes=[
     {path:'/',redirect:'/users' ,name:'root'},
@@ -72,6 +79,8 @@ const routes=[
 
     {path:'/orders', component:order, name:'orders'},
     {path:'/orderCreate', component:orderCreate, name:'orderCreate'},
+
+    {path:'/dashboard', component:dashboard, name:'dashboard'},
     
     ];
 const router = new VueRouter({
