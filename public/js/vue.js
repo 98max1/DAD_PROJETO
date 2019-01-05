@@ -69723,7 +69723,7 @@ module.exports = {
                 /*console.log("aaaaaaaaaaaaaaaaaaaa");
                 console.log(response.data.data);
                 console.log("11111111111111");*/
-
+                _this.$socket.emit('user_enter', response.data.data);
                 _this.$store.commit('setUser', response.data.data);
                 _this.typeofmsg = "alert-success";
                 _this.message = "User authenticated correctly";
@@ -72817,7 +72817,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -72883,6 +72883,15 @@ module.exports = {
 				//this.$store.commit('setUser',response.data);
 				_this.$emit('meal-Terminated', meal);
 			});
+		}
+	},
+	sockets: {
+		meal_terminated: function meal_terminated(terminatedMeal) {
+			var refToTerminatedMeal = this.getTerminatedMeal(terminatedMeal.id);
+			if (refToTerminatedMeal !== null) {
+				Object.assign(refToTerminatedMeal, terminatedMeal);
+				this.changeStyleTemp(refToTerminatedMeal, "changed", 3000);
+			}
 		}
 	}
 };
