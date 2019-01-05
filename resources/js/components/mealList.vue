@@ -6,8 +6,8 @@
 	            <th>State</th>
 	            <th>Table number</th>
 	            <th>Start</th>
-	            <th>End</th>
 	            <th>Responsible Waiter</th>
+				<th>Total Price Preview</th>
 	            <th>Actions</th>
 	        </tr>
 			<tr v-else>
@@ -20,7 +20,6 @@
 	            <td>{{meal.state}}</td>
 	            <td>{{meal.table_number}}</td>
 	            <td>{{meal.start}}</td>
-	            <td>{{meal.end}}</td>
 	            <td>{{meal.responsible_waiter_id}}</td>
 				<td>{{meal.total_price_preview}}</td>
 				<div class="form-group">

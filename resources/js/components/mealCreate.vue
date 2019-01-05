@@ -71,7 +71,10 @@
 	                        this.message = this.error;
 	                        this.showMessage = true;
 						})
-		        }
+				},
+				cancelRegister: function(){
+					this.$router.push('/meals');
+				}
 
 		    },
 			mounted() {

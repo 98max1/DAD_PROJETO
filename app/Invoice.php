@@ -22,4 +22,8 @@ class Invoice extends Model
      *
      * @var array
      */
+
+    /* public function items(){
+        return $this->belongsToMany('App\Item','invoice_items', 'invoice_id', 'item_id')->withTrashed()->withPivot('quantity','unit_price','sub_total_price');
+     }  */
 }

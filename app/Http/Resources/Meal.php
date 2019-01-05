@@ -24,4 +24,5 @@ class Meal extends JsonResource
             'total_price_preview' => $this->total_price_preview
         ];
     }
+    public $timestamps = false;
 }
