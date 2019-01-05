@@ -36,6 +36,15 @@ Vue.use(Table);
 import { Pagination } from 'bootstrap-vue/es/components';
 Vue.use(Pagination);
 
+import { Button } from 'bootstrap-vue/es/components';
+Vue.use(Button);
+
+import { Layout } from 'bootstrap-vue/es/components';
+Vue.use(Layout);
+
+import { Card } from 'bootstrap-vue/es/components';
+Vue.use(Card);
+
 const userListComponent = Vue.component('user-list',require('./components/userList.vue'));
 const itemListComponent = Vue.component('item-list', require('./components/itemList.vue'));
 
@@ -50,6 +59,7 @@ const reset = Vue.component('reset',require('./components/reset.vue'));
 const resetPassword = Vue.component('resetPassword',require('./components/resetPassword.vue'));
 const shift = Vue.component('shift',require('./components/shift.vue'));
 const item = Vue.component('item', require('./components/item.vue'));
+const table = Vue.component('table', require('./components/table.vue'));
 const meal = Vue.component('meal', require('./components/meal.vue'));
 const mealCreate = Vue.component('mealCreate', require('./components/mealCreate.vue'));
 
@@ -59,7 +69,7 @@ const orderCreate = Vue.component('orderCreate', require('./components/orderCrea
 const dashboard = Vue.component('dashboard', require('./components/dashboard.vue'));
 
 const routes=[
-    {path:'/',redirect:'/users' ,name:'root'},
+    {path:'/',redirect:'/items' ,name:'root'},
     {path:'/users',component:user, name:'users'},
     {path:'/list',component:userListComponent,name:'userList'},
     {path:'/profile',component:profile,name:'profile'},
@@ -72,6 +82,7 @@ const routes=[
     //{path:'/resetPassword',component:resetPassword,name:'resetPassword'}
     {path:'/shift',component:shift,name:'shift'},
     {path:'/items', component:item, name:'items'},
+    {path:'/tables', component:table, name:'table'},
     {path:'/itemList', component:itemListComponent, name:'itemList'},
 
     {path:'/meals', component:meal, name:'meals'},

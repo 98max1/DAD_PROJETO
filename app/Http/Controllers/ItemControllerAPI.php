@@ -42,9 +42,8 @@ class ItemControllerAPI extends Controller
         return response()->json($user, 201);
 	}
 	public function orderItem(Request $request,$id){
-		$order = Order::findOrFail($id);
 		return ItemResource::collection( Item::select()
-			->where('id','=',$order->id)
+			->where('id','=',$id)
 			->get());	
 		//$orders = $meal->order;
 		//return OrderResource::collection($orders);
