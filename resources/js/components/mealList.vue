@@ -55,7 +55,16 @@
 						this.$emit('meal-Terminated', meal);
 	                });
 			},
-		}
+		},
+		sockets: {
+	        meal_terminated(terminatedMeal){
+	        	let refToTerminatedMeal = this.getTerminatedMeal(terminatedMeal.id);
+	        	if (refToTerminatedMeal !== null) {
+	        		Object.assign(refToTerminatedMeal, terminatedMeal);
+	        		this.changeStyleTemp(refToTerminatedMeal, "changed", 3000);
+	        	}
+	        },        	
+        }
 	}
 
 </script>

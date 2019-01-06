@@ -54,7 +54,7 @@
                         /*console.log("aaaaaaaaaaaaaaaaaaaa");
                         console.log(response.data.data);
                         console.log("11111111111111");*/
-
+                        this.$socket.emit('user_enter', response.data.data);
                         this.$store.commit('setUser',response.data.data);
                         this.typeofmsg = "alert-success";
                         this.message = "User authenticated correctly";

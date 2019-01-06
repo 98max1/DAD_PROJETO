@@ -69733,7 +69733,7 @@ module.exports = {
                 /*console.log("aaaaaaaaaaaaaaaaaaaa");
                 console.log(response.data.data);
                 console.log("11111111111111");*/
-
+                _this.$socket.emit('user_enter', response.data.data);
                 _this.$store.commit('setUser', response.data.data);
                 _this.typeofmsg = "alert-success";
                 _this.message = "User authenticated correctly";
@@ -73200,7 +73200,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -73266,6 +73266,15 @@ module.exports = {
 				//this.$store.commit('setUser',response.data);
 				_this.$emit('meal-Terminated', meal);
 			});
+		}
+	},
+	sockets: {
+		meal_terminated: function meal_terminated(terminatedMeal) {
+			var refToTerminatedMeal = this.getTerminatedMeal(terminatedMeal.id);
+			if (refToTerminatedMeal !== null) {
+				Object.assign(refToTerminatedMeal, terminatedMeal);
+				this.changeStyleTemp(refToTerminatedMeal, "changed", 3000);
+			}
 		}
 	}
 };
@@ -75823,6 +75832,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 //import {Cartesian,Area} from 'laue';
 //import { GChart } from 'vue-google-charts';
@@ -75841,11 +75863,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             urlInvoicesAll: '/api/invoicesInfoAll',
             urlMeals: '/api/mealsInfo',
             urlOrders: '/api/mealsSummary/',
+            urlOrdersItems: '/api/orderItem/',
             check: "meals",
             invoices: [],
             meals: [],
             allMeals: [],
             orders: [],
+            ordersItems: [],
             currentPage: 1,
             perPage: 5,
             showOrder: null,
@@ -75869,7 +75893,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             var $this = this;
-            axios.get(this.urlInvoices).then(function (response) {
+            axios.get(this.urlInvoicesAll).then(function (response) {
                 _this2.invoices = response.data.data;
                 //$this.makePagination(response.data);
             });
@@ -75900,10 +75924,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var $this = this;
             axios.get(this.urlOrders + this.currentMeal.id).then(function (response) {
                 _this5.orders = response.data.data;
-                console.log(response.data.data);
+                _this5.getOrdersItems();
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        getOrdersItems: function getOrdersItems() {
+            console.log("??????????????????????????????");
+            console.log(this.orders);
+            this.ordersItems = [];
+            this.orders.forEach(function (order) {
+                var _this6 = this;
+
+                axios.get(this.urlOrdersItems + order.item_id).then(function (response) {
+                    console.log("WWWWWWWWWWWWWWWWWw");
+                    console.log(response.data.data);
+                    _this6.ordersItems.push(response.data.data[0]);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }, this);
         },
         makePagination: function makePagination(data) {
             var pagination = {
@@ -75980,6 +76020,52 @@ var render = function() {
               [_vm._v(" Show All Meals")]
             ),
             _vm._v(" "),
+            _c(
+              "b-button",
+              {
+                staticClass: "mr-2",
+                attrs: { variant: "success", size: "sd" },
+                on: {
+                  click: function($event) {
+                    $event.stopPropagation()
+                    ;(_vm.showOrder = false),
+                      (_vm.showAllMeal = false),
+                      (_vm.showInvoice = true),
+                      (_vm.showMeal = false),
+                      _vm.getInvoices()
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\n                        Show Invoices\n                        "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "b-button",
+              {
+                staticClass: "mr-2",
+                attrs: { variant: "success", size: "sd" },
+                on: {
+                  click: function($event) {
+                    $event.stopPropagation()
+                    ;(_vm.showOrder = false),
+                      (_vm.showAllMeal = false),
+                      (_vm.showInvoice = true),
+                      (_vm.showMeal = false),
+                      _vm.getInvoicesAll()
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\n                        Show All Invoices\n                        "
+                )
+              ]
+            ),
+            _vm._v(" "),
             _vm.showMeal == true
               ? _c(
                   "div",
@@ -76037,7 +76123,7 @@ var render = function() {
                                 "b-button",
                                 {
                                   staticClass: "mr-2",
-                                  attrs: { size: "sm", variant: "success" },
+                                  attrs: { size: "sm", variant: "info" },
                                   on: {
                                     click: function($event) {
                                       $event.stopPropagation()
@@ -76052,52 +76138,6 @@ var render = function() {
                                 [
                                   _vm._v(
                                     "\n\t\t\t\t\t\t\t\t      Orders\n\t\t\t\t\t\t\t\t      "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-button",
-                                {
-                                  staticClass: "mr-2",
-                                  attrs: { size: "sm" },
-                                  on: {
-                                    click: function($event) {
-                                      $event.stopPropagation()
-                                      ;(_vm.showOrder = false),
-                                        (_vm.showInvoice = true),
-                                        (_vm.showMeal = false),
-                                        (_vm.currentMeal = row.item),
-                                        _vm.getInvoices()
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n\t\t\t\t\t\t\t\t      Invoices\n\t\t\t\t\t\t\t\t      "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-button",
-                                {
-                                  staticClass: "mr-2",
-                                  attrs: { size: "sm" },
-                                  on: {
-                                    click: function($event) {
-                                      $event.stopPropagation()
-                                      ;(_vm.showOrder = false),
-                                        (_vm.showInvoice = true),
-                                        (_vm.showMeal = false),
-                                        (_vm.currentMeal = row.item),
-                                        _vm.getInvoicesAll()
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n\t\t\t\t\t\t\t\t      All Invoices\n\t\t\t\t\t\t\t\t      "
                                   )
                                 ]
                               )
@@ -76278,9 +76318,105 @@ var render = function() {
                                                   )
                                                 ])
                                               ]
-                                            )
+                                            ),
+                                            _vm._v(" "),
+                                            _vm._l(_vm.ordersItems, function(
+                                              orderitem
+                                            ) {
+                                              return order.item_id ==
+                                                orderitem.id
+                                                ? _c(
+                                                    "b-col",
+                                                    {
+                                                      key: orderitem.id,
+                                                      staticClass:
+                                                        "text-sm-right",
+                                                      attrs: { sm: "auto" }
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "b-row",
+                                                        {
+                                                          staticClass:
+                                                            "text-sm-right"
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            " Item:\n                                                    "
+                                                          ),
+                                                          _c(
+                                                            "b-col",
+                                                            {
+                                                              staticClass:
+                                                                "text-sm-right",
+                                                              attrs: {
+                                                                sm: "auto"
+                                                              }
+                                                            },
+                                                            [
+                                                              _c("b", [
+                                                                _vm._v(
+                                                                  "Type: " +
+                                                                    _vm._s(
+                                                                      orderitem.type
+                                                                    )
+                                                                )
+                                                              ])
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "b-col",
+                                                            {
+                                                              staticClass:
+                                                                "text-sm-right",
+                                                              attrs: {
+                                                                sm: "auto"
+                                                              }
+                                                            },
+                                                            [
+                                                              _c("b", [
+                                                                _vm._v(
+                                                                  "Name: " +
+                                                                    _vm._s(
+                                                                      orderitem.name
+                                                                    )
+                                                                )
+                                                              ])
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "b-col",
+                                                            {
+                                                              staticClass:
+                                                                "text-sm-right",
+                                                              attrs: {
+                                                                sm: "auto"
+                                                              }
+                                                            },
+                                                            [
+                                                              _c("b", [
+                                                                _vm._v(
+                                                                  "Price: " +
+                                                                    _vm._s(
+                                                                      orderitem.price
+                                                                    ) +
+                                                                    "€"
+                                                                )
+                                                              ])
+                                                            ]
+                                                          )
+                                                        ],
+                                                        1
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                : _vm._e()
+                                            })
                                           ],
-                                          1
+                                          2
                                         )
                                       ],
                                       1
