@@ -1,15 +1,15 @@
 <template>
 	<div class="jumbotron">
 	    <h2>Summary orders</h2>
+		<h7>Total preco da meal: {{price}}</h7>
 		<div class="form-group">
 			<table class="table table-striped">
 				<thead>
-					<!--<h7>Total preco da meal: {{price}}</h7>-->
 					<tr  v-if="orders.length > 0">
 						<th>ID</th>
 						<th>Table number</th>
 						<th>Name Product</th>
-						<th>Price</th>
+						<th>Price Produtc</th>
 					</tr>
 					<tr v-else>
 						<td>Não existem orders da meal selecionada</td>
@@ -19,9 +19,6 @@
 					<tr v-for="order in orders" :key ="order.id">
 						<td>{{order.id}}</td>
 						<td>{{table}}</td>
-						
-						<td>{{price}}</td>
-
 						<td><!--{{getName(order)}}--></td>
 						<td><!--{{getPrice(order)}}--></td>
 					</tr>   
