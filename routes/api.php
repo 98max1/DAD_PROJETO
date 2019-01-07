@@ -60,7 +60,8 @@ Route::get('countOrdersCook/{id}', 'OrderControllerAPI@countOrdersCook');
 Route::get('countMealWaiter/{id}', 'OrderControllerAPI@countMealWaiter');
 Route::get('countOrdersWaiter/{id}', 'OrderControllerAPI@countOrdersWaiter');
 
-
+Route::patch('prepared/{id}', 'OrderControllerAPI@preparedOrder');
+Route::patch('inPreparation/{id}', 'OrderControllerAPI@inPreparationOrder');
 
 
 //******************************************************************************

@@ -40,12 +40,13 @@ class OrderControllerAPI extends Controller
 	public function ordersCook(Request $request)
 	{
 		$user =  \Auth::guard('api')->user();
-		$order = Order::whereHas('meal', function($query) use ($user){
-			$query->where('responsible_cook_id', $user->id)
-					->where('state','=','in preparation')
-					->orWhere('state','=','confirmed');
-		})->get();
-		return OrderResource::collection($order);
+		$orders = Order::select()
+			->where('responsible_cook_id','=',$user->id)
+			->where('state','=','in preparation')
+			->orWhere('state','=','confirmed')
+			->get();
+
+		return OrderResource::collection($orders);
 	}
 
 	public function ordersFromMeal(Request $request,$id){
@@ -155,5 +156,20 @@ class OrderControllerAPI extends Controller
         //$user->last_shift_Start = new Datetime();
         $order->save();
         return response()->json($order,200);
-    }
+	}
+	
+	public function preparedOrder(Request $request,$id){
+		$order = Order::findOrFail($id);
+		$order->state = 'prepared';
+		$order->save();
+		return response()->json($order,200);
+	}
+	
+	public function inPreparationOrder(Request $request,$id){
+		$order = Order::findOrFail($id);
+		$order->state = 'in preparation';
+		$order->save();
+		return response()->json($order,200);
+	}
+	
 }

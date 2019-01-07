@@ -9,6 +9,14 @@
 			        	<div v-if="showOrder==true">
 							<b-table striped hover :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :fields="fieldsOrders"
 							:items="orders"  :current-page="currentPage" :perPage="perPage">
+								<template slot="Actions" slot-scope="row">
+                                      <b-button size="sm" @click.stop="prepared(row.item)" variant='danger' v-if="row.item.state == 'in preparation'">
+                                      Prepared
+                                      </b-button>
+                                      <b-button size="sm" @click.stop="inPreparation(row.item)" variant='danger' v-if="row.item.state == 'confirmed'">
+                                      In preparation
+                                      </b-button>
+								</template>
 							</b-table>
 							     
 							<b-pagination name="pagination" size="md" :total-rows="orders.length" v-model="currentPage" :per-page="perPage"/>
@@ -34,8 +42,8 @@
                 	{key :'start',sortable:true},
                 	{key :'end',sortable:true},
                 	{key :'responsible_cook_id',sortable:true},
-                	{key :'total_price_preview',sortable:true},
-            		],
+                    {key :'Actions'},
+                    ],
             	sortBy:"id",
             	sortDesc:false,
                 urlOrders:'/api/myOrders',
@@ -53,6 +61,19 @@
                         this.orders = response.data.data; 
                     }).catch(error=>{console.log(error)});
            },
+           prepared: function(order){	
+                axios.patch('api/prepared/'+order.id, order)
+                    .then(response=>{
+                        Object.assign(order, response.data);
+                    });
+            },
+            inPreparation: function(order){	
+                axios.patch('api/inPreparation/'+order.id, order)
+                    .then(response=>{
+                        Object.assign(order, response.data);
+                    });
+            },
+
         },
         mounted() {
             this.getOrders();
