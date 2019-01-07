@@ -28,6 +28,9 @@ Route::middleware('auth:api')->get('users/me', 'UserControllerAPI@myProfile');
 Route::get('users/{id}', 'UserControllerAPI@show');
 Route::get('getUsers', 'UserControllerAPI@getUsers');
 
+Route::get('/invoices', 'InvoiceControllerAPI@index');
+Route::patch('/invoices/{id}', 'InvoiceControllerAPI@paidInvoice');
+
 Route::post('users', 'UserControllerAPI@store');
 //Route::middleware('auth:api')->post('users', 'UserControllerAPI@store');
 

@@ -47,7 +47,6 @@ Vue.use(Card);
 
 const userListComponent = Vue.component('user-list',require('./components/userList.vue'));
 const itemListComponent = Vue.component('item-list', require('./components/itemList.vue'));
-const invoiceListComponent = Vue.component('invoice-list', require('./components/invoiceList.vue'));
 
 
 const user = Vue.component('user',require('./components/user.vue'));
@@ -63,7 +62,6 @@ const item = Vue.component('item', require('./components/item.vue'));
 const table = Vue.component('table', require('./components/table.vue'));
 const meal = Vue.component('meal', require('./components/meal.vue'));
 const mealCreate = Vue.component('mealCreate', require('./components/mealCreate.vue'));
-const invoice = Vue.component('invoice', require('./components/invoice.vue'));
 
 const order = Vue.component('order', require('./components/order.vue'));
 const orderCreate = Vue.component('orderCreate', require('./components/orderCreate.vue'));
@@ -99,9 +97,6 @@ const routes=[
     {path:'/dashboard', component:dashboard, name:'dashboard'},
     {path:'/statistics', component:statistics, name:'statistics'},
     
-    {path: '/invoices', component:invoice, name:'invoice'},
-    {path: '/invoiceList', component:invoiceListComponent, name:'invoiceList'},
-
     ];
 const router = new VueRouter({
     routes:routes 

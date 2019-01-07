@@ -37,4 +37,11 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function isChashier(){
+        if ($this->type=='cashier') {
+            return true;
+        }
+        return false;
+    }
 }

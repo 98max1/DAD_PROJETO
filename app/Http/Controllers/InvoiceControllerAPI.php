@@ -43,4 +43,13 @@ class InvoiceControllerAPI extends Controller
         $invoice->save();
         return response()->json($invoice,204);
     }
+
+    public function paidInvoice(Request $request, $id){
+        $invoice = Invoice::findOrFail($id);
+        
+        $invoice->state = 'paid';
+
+        $invoice->save();
+        return response()->json($invoice,204);
+    }
 } 

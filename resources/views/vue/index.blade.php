@@ -11,6 +11,7 @@
     <router-link to="/shift" v-show="this.$store.state.user">Shift</router-link> #
     <router-link to="/meals" v-show="this.$store.state.user">Meals</router-link> #
     <router-link to="/orders" v-show="this.$store.state.user">Orders</router-link> #
+    <router-link to="/invoices" v-show="this.$store.state.user.type=='cashier'">Invoices</router-link> #
     <router-link to="/statistics" v-show="this.$store.state.user">Statistics</router-link> #
     <router-link to="/items">Items</router-link> #
     <router-link to="/tables">Tables</router-link> #
