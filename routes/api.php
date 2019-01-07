@@ -93,6 +93,7 @@ Route::middleware('auth.manager')->get('/tables', 'TableControllerAPI@index');
 Route::middleware('auth.manager')->delete('/tables/{id}', 'TableControllerAPI@destroy');
 Route::middleware('auth.manager')->post('/tables', 'TableControllerAPI@store');
 Route::middleware('auth.manager')->patch('/mealNotPaid/{id}', 'MealControllerAPI@mealNotPaid');
+Route::middleware('auth.manager')->patch('/invoiceNotPaid/{id}', 'InvoiceControllerAPI@invoiceNotPaid');
 
 Route::middleware('auth.manager')->get('/invoicesInfo', 'InvoiceControllerAPI@dashInvoices');
 Route::middleware('auth.manager')->get('/invoicesInfoAll', 'InvoiceControllerAPI@dashInvoicesAll');

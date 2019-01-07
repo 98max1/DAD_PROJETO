@@ -3,19 +3,27 @@
         <div class="jumbotron">
             <h1>{{ title }}</h1>
         </div>
-    	<div class="content">
-        	<div class="panel">
-	        	<template>
-			        	<div v-if="showOrder==true">
-							<b-table striped hover :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :fields="fieldsOrders"
-							:items="orders"  :current-page="currentPage" :perPage="perPage">
-							</b-table>
-							     
-							<b-pagination name="pagination" size="md" :total-rows="orders.length" v-model="currentPage" :per-page="perPage"/>
-			        	</div>
+        <div class="content">
+            <div class="panel">
+                <template>
+                        <div v-if="showOrder==true">
+                            <b-table striped hover :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :fields="fieldsOrders"
+                            :items="orders"  :current-page="currentPage" :perPage="perPage">
+                                <template slot="show" slot-scope="row">
+                                      <b-button size="sm" @click.stop="prepared(row.item)" variant='danger'>
+                                      Prepared
+                                      </b-button>
+                                      <b-button size="sm" @click.stop="prepared(row.item)" variant='danger'>
+                                      In preparation
+                                      </b-button>
+                                </template>
+                            </b-table>
+                                 
+                            <b-pagination name="pagination" size="md" :total-rows="orders.length" v-model="currentPage" :per-page="perPage"/>
+                        </div>
 
-   				 </template>
-        	</div>
+                 </template>
+            </div>
         </div>
     </div>              
 </template>
@@ -53,6 +61,20 @@
                         this.orders = response.data.data; 
                     }).catch(error=>{console.log(error)});
            },
+           prepared: function(order){   
+                axios.patch('api/prepared/'+order.id, order)
+                    .then(response=>{
+                        Object.assign(order, response.data);
+                        this.$emit('order-Prepared',order);
+                    });
+            },
+            inPreparation: function(order){ 
+                axios.patch('api/inPreparation/'+order.id, order)
+                    .then(response=>{
+                        Object.assign(order-InPreparation, response.data);
+                        this.$emit('order-',order);
+                    });
+            },
         },
         mounted() {
             this.getOrders();
