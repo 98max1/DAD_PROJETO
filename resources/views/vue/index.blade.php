@@ -41,6 +41,8 @@
     <router-link to="/meals" v-show="this.$store.state.user">Meals</router-link> #
     <router-link to="/orders" v-show="this.$store.state.user">Orders</router-link> #
     <router-link to="/statistics" v-show="this.$store.state.user">Statistics</router-link> #
+    <router-link to="/items">Items</router-link> #
+    <router-link to="/tables">Tables</router-link> #
     <router-link to="/login"  v-show="!this.$store.state.user">Login</router-link> #
     <router-link to="/logout" v-show="this.$store.state.user">Logout</router-link>
     <br>

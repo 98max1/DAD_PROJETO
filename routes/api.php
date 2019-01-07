@@ -62,7 +62,6 @@ Route::get('countOrdersWaiter/{id}', 'OrderControllerAPI@countOrdersWaiter');
 
 
 
-Route::get('mealsInfo', 'MealControllerAPI@dashInfo');
 
 //******************************************************************************
 //Route::middleware('auth:api')->
@@ -87,3 +86,13 @@ Route::get('users/emailavailable', 'UserControllerAPI@emailAvailable');
 Route::post('login', 'LoginControllerAPI@login')->name('login');
  
 Route::middleware('auth:api')->post('logout', 'LoginControllerAPI@logout');
+
+Route::middleware('auth.manager')->get('mealsInfo', 'MealControllerAPI@dashInfo');
+Route::middleware('auth.manager')->get('mealsInfoAll', 'MealControllerAPI@dashInfoAll');
+Route::middleware('auth.manager')->get('/tables', 'TableControllerAPI@index');
+Route::middleware('auth.manager')->delete('/tables/{id}', 'TableControllerAPI@destroy');
+Route::middleware('auth.manager')->post('/tables', 'TableControllerAPI@store');
+Route::middleware('auth.manager')->patch('/mealNotPaid/{id}', 'MealControllerAPI@mealNotPaid');
+
+Route::middleware('auth.manager')->get('/invoicesInfo', 'InvoiceControllerAPI@dashInvoices');
+Route::middleware('auth.manager')->get('/invoicesInfoAll', 'InvoiceControllerAPI@dashInvoicesAll');

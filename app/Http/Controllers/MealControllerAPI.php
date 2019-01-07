@@ -132,5 +132,35 @@ class MealControllerAPI extends Controller
 	{
 		return MealResource::collection(Meal::select()->where('state','=','active')->orWhere('state','=','terminated')->get());
 	}
+	public function dashInfoAll(Request $request)
+	{
+		return MealResource::collection(Meal::select()->get());
+	}
+
+	public function mealNotPaid(Request $request,$id){
+
+		$meal = Meal::findOrFail($id);
+		if ($meal->state=='terminated') {
+	        $meal->state = 'not paid';
+			$invoice = Invoice::select()->where('meal_id','=',$id);
+			if ($invoice->state=='pending') {
+				$invoice->state='not paid';			
+				
+				$orders = Order::select()
+					->where('meal_id','=',$id)
+					->get();
+				foreach($orders as $order){
+					if($order != 'delivered'){
+						$orderr=Order::findOrFail($order->id);
+						$orderr->state = 'not delivered';
+						$orderr->save();
+					}
+				}
+			}
+		}
+		$meal->save();
+		$invoice->save();
+		return response()->json($meal,200);
+	}
 	
 }

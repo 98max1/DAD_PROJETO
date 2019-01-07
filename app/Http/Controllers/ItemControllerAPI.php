@@ -48,7 +48,7 @@ class ItemControllerAPI extends Controller
         ->get();
         return $item->id;
 		return ItemResource::collection( Item::select()
-			->where('id','=',$order->id)
+			->where('id','=',$id)
 			->get());	
 		//$orders = $meal->order;
 		//return OrderResource::collection($orders);
