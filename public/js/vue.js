@@ -70272,7 +70272,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -70346,8 +70346,6 @@ module.exports = {
             }).catch(function (error) {
                 _this.$store.commit('clearUserAndToken');
                 _this.typeofmsg = "alert-danger";
-                console.log("merdaaaaaaa");
-                console.log(error);
                 //this.message = msg.data;
                 _this.showMessage = true;
                 console.log(error);
@@ -76123,6 +76121,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 //import {Cartesian,Area} from 'laue';
 //import { GChart } from 'vue-google-charts';
@@ -76133,7 +76133,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             pagination: [],
             fieldsMeals: [{ key: 'id', sortable: true }, { key: 'state', sortable: true }, { key: 'table_number', sortable: true }, { key: 'start', sortable: true }, { key: 'end', sortable: true }, { key: 'responsible_waiter_id', sortable: true }, { key: 'total_price_preview', sortable: true }, { key: 'Actions' }, { key: 'show' }],
             fieldsAllMeals: [{ key: 'id', sortable: true }, { key: 'state', sortable: true }, { key: 'table_number', sortable: true }, { key: 'start', sortable: true }, { key: 'end', sortable: true }, { key: 'responsible_waiter_id', sortable: true }, { key: 'total_price_preview', sortable: true }, { key: 'show_details' }],
-            fieldsOrders: [{ key: 'id', sortable: true }, { key: 'state', sortable: true }, { key: 'item_id', sortable: true }, { key: 'meal_id', sortable: true }, { key: 'start', sortable: true }, { key: 'end', sortable: true }, { key: 'responsible_cook_id', sortable: true }, { key: 'total_price_preview', sortable: true }],
+            fieldsOrders: [{ key: 'id', sortable: true }, { key: 'state', sortable: true }, { key: 'item_id', sortable: true }, { key: 'meal_id', sortable: true }, { key: 'start', sortable: true }, { key: 'end', sortable: true }, { key: 'responsible_cook_id', sortable: true }],
             fieldsInvoices: [{ key: 'id', sortable: true }, { key: 'state', sortable: true }, { key: 'meal_id', sortable: true }, { key: 'nif', sortable: true }, { key: 'name', sortable: true }, { key: 'date', sortable: true }, { key: 'total_price', sortable: true }],
             sortBy: "id",
             sortDesc: false,
@@ -76154,7 +76154,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             showMeal: true,
             showAllMeal: null,
             showInvoice: null,
-            currentMeal: null
+            currentMeal: null,
+            currentInvoice: null
         };
     },
     methods: {
@@ -76236,6 +76237,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.patch('api/mealNotPaid/' + this.currentMeal.id, this.currentMeal).then(function (response) {
                 console.log(response.data);
                 Object.assign(meal, response.data);
+            });
+        },
+        invoiceNotPaid: function invoiceNotPaid(invoice) {
+            axios.patch('api/invoiceNotPaid/' + this.currentInvoice.id, this.currentInvoice).then(function (response) {
+                console.log(response.data);
+                Object.assign(invoice, response.data);
             });
         }
     },
@@ -76818,7 +76825,26 @@ var render = function() {
                         {
                           key: "show",
                           fn: function(row) {
-                            return undefined
+                            return [
+                              _c(
+                                "b-button",
+                                {
+                                  attrs: { size: "sm", variant: "danger" },
+                                  on: {
+                                    click: function($event) {
+                                      $event.stopPropagation()
+                                      ;(_vm.currenInvoice = row.item),
+                                        _vm.invoiceNotPaid()
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                      Not Paid\n                                      "
+                                  )
+                                ]
+                              )
+                            ]
                           }
                         }
                       ])

@@ -22,8 +22,8 @@
 							<b-pagination name="pagination" size="md" :total-rows="orders.length" v-model="currentPage" :per-page="perPage"/>
 			        	</div>
 
-   				 </template>
-        	</div>
+                 </template>
+            </div>
         </div>
     </div>              
 </template>

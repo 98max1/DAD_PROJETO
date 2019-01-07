@@ -64,8 +64,6 @@
                     .catch(error => { 
                         this.$store.commit('clearUserAndToken');
                         this.typeofmsg = "alert-danger";
-                        console.log("merdaaaaaaa")
-                        console.log(error)
                        //this.message = msg.data;
                         this.showMessage = true;
                         console.log(error);

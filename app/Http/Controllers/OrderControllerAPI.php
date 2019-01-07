@@ -171,5 +171,5 @@ class OrderControllerAPI extends Controller
 		$order->save();
 		return response()->json($order,200);
 	}
-	
+
 }

@@ -87,7 +87,9 @@
 							<b-table striped hover :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :fields="fieldsInvoices"
 							:items="invoices"  :current-page="currentPage" :perPage="perPage">
 								<template slot="show" slot-scope="row">
-
+                                      <b-button size="sm" @click.stop="currenInvoice=row.item ,invoiceNotPaid()" variant='danger'>
+                                      Not Paid
+                                      </b-button>
 								</template>
 							</b-table>
 							     
@@ -137,7 +139,6 @@
                 	{key :'start',sortable:true},
                 	{key :'end',sortable:true},
                 	{key :'responsible_cook_id',sortable:true},
-                	{key :'total_price_preview',sortable:true},
             		],
                 fieldsInvoices:[
                 	{key :'id',sortable:true},
@@ -168,6 +169,7 @@
                 showAllMeal:null,
                 showInvoice:null,
                 currentMeal:null,
+                currentInvoice:null,
             }
         },
         methods: {
@@ -238,11 +240,18 @@
                 this.pagination=pagination;
             },
             mealNotPaid(meal){
-				axios.patch('api/mealNotPaid/'+this.currentMeal.id, this.currentMeal)
-	                .then(response=>{
-						console.log(response.data);
-	                	Object.assign(meal, response.data);
-	                });
+                axios.patch('api/mealNotPaid/'+this.currentMeal.id, this.currentMeal)
+                    .then(response=>{
+                        console.log(response.data);
+                        Object.assign(meal, response.data);
+                    });
+            },
+            invoiceNotPaid(invoice){
+                axios.patch('api/invoiceNotPaid/'+this.currentInvoice.id, this.currentInvoice)
+                    .then(response=>{
+                        console.log(response.data);
+                        Object.assign(invoice, response.data);
+                    });
             }
         },
         mounted() {
