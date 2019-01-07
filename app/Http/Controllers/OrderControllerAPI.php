@@ -36,6 +36,17 @@ class OrderControllerAPI extends Controller
 		return OrderResource::collection($order);
 	}
 
+	public function ordersCook(Request $request)
+	{
+		$user =  \Auth::guard('api')->user();
+		$order = Order::whereHas('meal', function($query) use ($user){
+			$query->where('responsible_cook_id', $user->id)
+					->where('state','=','in preparation')
+					->orWhere('state','=','confirmed');
+		})->get();
+		return OrderResource::collection($order);
+	}
+
 	public function ordersFromMeal(Request $request,$id){
 		$meal = Meal::findOrFail($id);
 		return OrderResource::collection( Order::select()

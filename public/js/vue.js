@@ -31623,12 +31623,13 @@ var mealCreate = Vue.component('mealCreate', __webpack_require__(309));
 
 var order = Vue.component('order', __webpack_require__(314));
 var orderCreate = Vue.component('orderCreate', __webpack_require__(324));
+var ordersCook = Vue.component('ordersCook', __webpack_require__(336));
 
 var dashboard = Vue.component('dashboard', __webpack_require__(329));
 
 var routes = [{ path: '/', redirect: '/items', name: 'root' }, { path: '/users', component: user, name: 'users' }, { path: '/list', component: userListComponent, name: 'userList' }, { path: '/profile', component: profile, name: 'profile' }, { path: '/profileEdit', component: profileEdit, name: 'profileEdit' }, { path: '/login', component: login, name: 'login' }, { path: '/logout', component: logout, name: 'logout' }, { path: '/register', component: register, name: 'register' }, { path: '/reset', component: reset, name: 'reset' }, { path: '/reset/:token/email/:email', component: resetPassword, name: 'resetPassword' },
 //{path:'/resetPassword',component:resetPassword,name:'resetPassword'}
-{ path: '/shift', component: shift, name: 'shift' }, { path: '/items', component: item, name: 'items' }, { path: '/tables', component: table, name: 'table' }, { path: '/itemList', component: itemListComponent, name: 'itemList' }, { path: '/meals', component: meal, name: 'meals' }, { path: '/mealCreate', component: mealCreate, name: 'mealCreate' }, { path: '/orders', component: order, name: 'orders' }, { path: '/orderCreate', component: orderCreate, name: 'orderCreate' }, { path: '/dashboard', component: dashboard, name: 'dashboard' }];
+{ path: '/shift', component: shift, name: 'shift' }, { path: '/items', component: item, name: 'items' }, { path: '/tables', component: table, name: 'table' }, { path: '/itemList', component: itemListComponent, name: 'itemList' }, { path: '/meals', component: meal, name: 'meals' }, { path: '/mealCreate', component: mealCreate, name: 'mealCreate' }, { path: '/orders', component: order, name: 'orders' }, { path: '/orderCreate', component: orderCreate, name: 'orderCreate' }, { path: '/myOrders', component: ordersCook, name: 'ordersCook' }, { path: '/dashboard', component: dashboard, name: 'dashboard' }];
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
     routes: routes
 });
@@ -76587,6 +76588,239 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 335 */,
+/* 336 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(337)
+}
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(339)
+/* template */
+var __vue_template__ = __webpack_require__(340)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-19b08450"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/ordersCook.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-19b08450", Component.options)
+  } else {
+    hotAPI.reload("data-v-19b08450", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(338);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("09d3115b", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-19b08450\",\"scoped\":true,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ordersCook.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-19b08450\",\"scoped\":true,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ordersCook.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 338 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\np[data-v-19b08450] {\r\n    font-size: 2em;\r\n    text-align: center;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 339 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            title: 'My Orders',
+            pagination: [],
+            fieldsOrders: [{ key: 'id', sortable: true }, { key: 'state', sortable: true }, { key: 'item_id', sortable: true }, { key: 'meal_id', sortable: true }, { key: 'start', sortable: true }, { key: 'end', sortable: true }, { key: 'responsible_cook_id', sortable: true }, { key: 'total_price_preview', sortable: true }],
+            sortBy: "id",
+            sortDesc: false,
+            urlOrders: '/api/myOrders',
+            orders: [],
+            currentPage: 1,
+            perPage: 5,
+            showOrder: true
+        };
+    },
+    methods: {
+        getOrders: function getOrders() {
+            var _this = this;
+
+            var $this = this;
+            axios.get(this.urlOrders, this.$store.state.user).then(function (response) {
+                _this.orders = response.data.data;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    },
+    mounted: function mounted() {
+        this.getOrders();
+    }
+});
+
+/***/ }),
+/* 340 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "jumbotron" }, [
+      _c("h1", [_vm._v(_vm._s(_vm.title))])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "content" }, [
+      _c(
+        "div",
+        { staticClass: "panel" },
+        [
+          [
+            _vm.showOrder == true
+              ? _c(
+                  "div",
+                  [
+                    _c("b-table", {
+                      attrs: {
+                        striped: "",
+                        hover: "",
+                        "sort-by": _vm.sortBy,
+                        "sort-desc": _vm.sortDesc,
+                        fields: _vm.fieldsOrders,
+                        items: _vm.orders,
+                        "current-page": _vm.currentPage,
+                        perPage: _vm.perPage
+                      },
+                      on: {
+                        "update:sortBy": function($event) {
+                          _vm.sortBy = $event
+                        },
+                        "update:sortDesc": function($event) {
+                          _vm.sortDesc = $event
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("b-pagination", {
+                      attrs: {
+                        name: "pagination",
+                        size: "md",
+                        "total-rows": _vm.orders.length,
+                        "per-page": _vm.perPage
+                      },
+                      model: {
+                        value: _vm.currentPage,
+                        callback: function($$v) {
+                          _vm.currentPage = $$v
+                        },
+                        expression: "currentPage"
+                      }
+                    })
+                  ],
+                  1
+                )
+              : _vm._e()
+          ]
+        ],
+        2
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-19b08450", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

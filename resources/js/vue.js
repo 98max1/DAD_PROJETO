@@ -65,6 +65,7 @@ const mealCreate = Vue.component('mealCreate', require('./components/mealCreate.
 
 const order = Vue.component('order', require('./components/order.vue'));
 const orderCreate = Vue.component('orderCreate', require('./components/orderCreate.vue'));
+const ordersCook = Vue.component('ordersCook', require('./components/ordersCook.vue'));
 
 const dashboard = Vue.component('dashboard', require('./components/dashboard.vue'));
 
@@ -90,6 +91,7 @@ const routes=[
 
     {path:'/orders', component:order, name:'orders'},
     {path:'/orderCreate', component:orderCreate, name:'orderCreate'},
+    {path:'/myOrders', component:ordersCook, name:'ordersCook'},
 
     {path:'/dashboard', component:dashboard, name:'dashboard'},
     

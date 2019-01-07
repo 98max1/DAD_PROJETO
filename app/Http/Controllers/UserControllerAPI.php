@@ -57,7 +57,21 @@ class UserControllerAPI extends Controller
         $user->fill($request->all());
         $user->password = Hash::make($user->password);
         $user->save();
-        \Mail::to($user)->send(new Welcome);
+
+        DB::table('password_resets')->insert([
+                'email' => $user->email,
+                'token' => str_random(60), //change 60 to any length you want
+                'created_at' => new Datetime()
+            ]); 
+        $tokenData = DB::table('password_resets')
+            ->where('email', $user->email)->first();
+
+       $token = $tokenData->token;
+       $email = $user->email;
+
+        \Mail::to($user)->send(new Welcome($token,$email));
+
+        //\Mail::to($user)->send(new Welcome);
         return response()->json($user, 201);
     }
 

@@ -27,7 +27,7 @@ Route::middleware('auth:api')->get('users/me', 'UserControllerAPI@myProfile');
 
 Route::get('users/{id}', 'UserControllerAPI@show');
 
-//Route::post('users', 'UserControllerAPI@store');
+Route::post('users', 'UserControllerAPI@store');
 //Route::middleware('auth:api')->post('users', 'UserControllerAPI@store');
 
 Route::put('users/{id}', 'UserControllerAPI@update');
@@ -89,3 +89,6 @@ Route::middleware('auth.manager')->patch('/mealNotPaid/{id}', 'MealControllerAPI
 
 Route::middleware('auth.manager')->get('/invoicesInfo', 'InvoiceControllerAPI@dashInvoices');
 Route::middleware('auth.manager')->get('/invoicesInfoAll', 'InvoiceControllerAPI@dashInvoicesAll');
+
+Route::middleware('auth:api')->get('/myOrders', 'OrderControllerAPI@ordersCook');
+
