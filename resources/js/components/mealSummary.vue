@@ -1,29 +1,26 @@
 <template>
 	<div class="jumbotron">
 	    <h2>Summary orders</h2>
+		<h7>Total preco da meal: {{price}}</h7>
 		<div class="form-group">
 			<table class="table table-striped">
 				<thead>
-					<h7>Total preco da meal: {{price}}</h7>
 					<tr  v-if="orders.length > 0">
 						<th>ID</th>
 						<th>Table number</th>
 						<th>Name Product</th>
-						<th>Price</th>
+						<th>Price Produtc</th>
 					</tr>
 					<tr v-else>
 						<td>Não existem orders da meal selecionada</td>
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-if="orders.length > 0" v-for="order in orders" :key ="order.id">
+					<tr v-for="order in orders" :key ="order.id">
 						<td>{{order.id}}</td>
 						<td>{{table}}</td>
-						
-						<td>{{price}}</td>
-
 						<td><!--{{getName(order)}}--></td>
-						<td><!--{{getPrice(order)}}{{item}}--></td>
+						<td><!--{{getPrice(order)}}--></td>
 					</tr>   
 				</tbody>
 			</table>
@@ -33,7 +30,6 @@
 	    </div>
 	</div>
 </template>
-
 <script type="text/javascript">
 	module.exports={
 		props: ['orders','table','price'],
@@ -48,14 +44,17 @@
 		},
 	    methods: {
 	        getName: function(order){
-                axios.get('api/orderItem/'+order.item_id)
-					.then(response=>{this.item = response.data.data});
-					console.log(this.item);
-					
+                axios.get('api/orderItem/'+order.item_id,order)
+					.then(response=>{
+						console.log(order.item_id);
+						this.item = response.data});
+					//return this.item;		
 			},
 			getPrice: function(order){
-                axios.get('api/orderItem/'+order.item_id)
-					.then(response=>{this.item = response.data.data; });
+                axios.get('api/orderItem/'+order.item_id,order)
+					.then(response=>{
+						this.item = response.data});
+					//return this.item;
             },
 		}
 	}

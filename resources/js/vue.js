@@ -68,6 +68,7 @@ const orderCreate = Vue.component('orderCreate', require('./components/orderCrea
 const ordersCook = Vue.component('ordersCook', require('./components/ordersCook.vue'));
 
 const dashboard = Vue.component('dashboard', require('./components/dashboard.vue'));
+const statistics = Vue.component('statistics', require('./components/statistics.vue'));
 
 const routes=[
     {path:'/',redirect:'/items' ,name:'root'},
@@ -94,6 +95,7 @@ const routes=[
     {path:'/myOrders', component:ordersCook, name:'ordersCook'},
 
     {path:'/dashboard', component:dashboard, name:'dashboard'},
+    {path:'/statistics', component:statistics, name:'statistics'},
     
     ];
 const router = new VueRouter({
@@ -147,28 +149,17 @@ const app = new Vue({
         sockets:{
             connect(){
                 console.log('socket connected (socket ID = '+this.$socket.id+')');
-            }, 
-            msg_from_server(dataFromServer){
-                console.log('Receiving this message from Server: "' + dataFromServer + '"');            
-                this.msgGlobalTextArea = dataFromServer + '\n' + this.msgGlobalTextArea ;
             },  
             text_from_server_managers(dataFromServer){
                 console.log('Receiving this message from Server: "' + dataFromServer + '"');            
                 this.msgManagerTextArea = dataFromServer + '\n' + this.msgManagerTextArea ;
             },
-            privateMessage(dataFromServer){
-                let sourceName = dataFromServer[1] === null ? 'Unknown': dataFromServer[1].name;
-                this.$toasted.show('Message "' + dataFromServer[0] + '" sent from "' + sourceName + '"');        
-            },
-            privateMessage_unavailable(destUser){
-                this.$toasted.error('User "' + destUser.name + '" is not available');       
-            },
-            privateMessage_sent(dataFromServer){
-                this.$toasted.success('Message "' + dataFromServer[0] + '" was sent to "' + dataFromServer[1].name + '"');
-            },
             user_changed(dataFromServer){
                 this.$toasted.show('User "' + dataFromServer.name + '" (ID= ' + dataFromServer.id + ') has changed');
             },
+            meal_terminated_noti(dataFromServer){
+                this.$toasted.show('Meal: "' + dataFromServer.id + '" has terminated');
+	        }, 
         },
       created() {
           console.log('-----');

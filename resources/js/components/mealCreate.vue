@@ -23,11 +23,7 @@
 	            name="total_price_preview" id="inputTotal_Price_Preview" 
 	            placeholder="Price Preview"/>
 				<small v-if="errors.total_price_preview" class="text-danger">{{ errors.total_price_preview[0]}}</small>
-				
-
-
-				
-				
+					
 	    </div>
 	    <div class="form-group">
 	        <a class="btn btn-primary" v-on:click.prevent="createMeal()">Register</a>
@@ -61,7 +57,7 @@
 		                	Object.assign(this.meal, response.data.data);
 		                	this.typeofmsg = "alert-success";
 	                        this.message = "Meal created correctly.";
-	                        this.showMessage = true;
+							this.showMessage = true;
 		                	//this.$emit('user-saved', this.user)
 		                })
 						.catch((error) => {

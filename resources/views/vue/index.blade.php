@@ -11,6 +11,7 @@
     <router-link to="/shift" v-show="this.$store.state.user">Shift</router-link> #
     <router-link to="/meals" v-show="this.$store.state.user">Meals</router-link> #
     <router-link to="/orders" v-show="this.$store.state.user">Orders</router-link> #
+    <router-link to="/statistics" v-show="this.$store.state.user">Statistics</router-link> #
     <router-link to="/items">Items</router-link> #
     <router-link to="/tables">Tables</router-link> #
     <router-link to="/login"  v-show="!this.$store.state.user">Login</router-link> #
@@ -18,6 +19,7 @@
     <br>
       <em>User: @{{this.$store.state.user != null ? this.$store.state.user.name : " - None - " }}</em>
     <hr> 
+      <h4>Send message to managers</h4>
       <div>
         <input type="text" id="inputManager" class="inputchat" v-model="msgManagerText" @keypress.enter="sendManagerText">
       </div>
