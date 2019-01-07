@@ -42,7 +42,11 @@ class ItemControllerAPI extends Controller
         return response()->json($user, 201);
 	}
 	public function orderItem(Request $request,$id){
-		$order = Order::findOrFail($id);
+        $order = Order::findOrFail($id);
+        $item= Item::select()
+        ->where('id','=',$order->id)
+        ->get();
+        return $item->id;
 		return ItemResource::collection( Item::select()
 			->where('id','=',$order->id)
 			->get());	

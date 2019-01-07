@@ -15,7 +15,7 @@
 			</tr>
 	    </thead>
 	    <tbody>
-	        <tr v-if="meals.length > 0" v-for="meal in meals" :key ="meal.id" :class="{activerow: editingMeal === meal}">
+	        <tr v-for="meal in meals" :key ="meal.id" :class="{activerow: editingMeal === meal}">
 	            <td>{{meal.id}}</td>
 	            <td>{{meal.state}}</td>
 	            <td>{{meal.table_number}}</td>
@@ -49,22 +49,12 @@
 			terminate: function(meal){	
 				axios.patch('api/terminateMeal/'+meal.id, meal)
 	                .then(response=>{
-						console.log(response.data);
-	                	Object.assign(meal, response.data);
+						Object.assign(meal, response.data);
+						this.$emit('meal-Terminated',meal);
 						//this.$store.commit('setUser',response.data);
-						this.$emit('meal-Terminated', meal);
 	                });
 			},
 		},
-		sockets: {
-	        meal_terminated(terminatedMeal){
-	        	let refToTerminatedMeal = this.getTerminatedMeal(terminatedMeal.id);
-	        	if (refToTerminatedMeal !== null) {
-	        		Object.assign(refToTerminatedMeal, terminatedMeal);
-	        		this.changeStyleTemp(refToTerminatedMeal, "changed", 3000);
-	        	}
-	        },        	
-        }
 	}
 
 </script>

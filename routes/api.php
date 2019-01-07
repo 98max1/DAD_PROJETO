@@ -26,6 +26,7 @@ Route::get('users/emailavailable', 'UserControllerAPI@emailAvailable');
 Route::middleware('auth:api')->get('users/me', 'UserControllerAPI@myProfile');
 
 Route::get('users/{id}', 'UserControllerAPI@show');
+Route::get('getUsers', 'UserControllerAPI@getUsers');
 
 //Route::post('users', 'UserControllerAPI@store');
 //Route::middleware('auth:api')->post('users', 'UserControllerAPI@store');
@@ -54,6 +55,12 @@ Route::post('orders', 'OrderControllerAPI@store');
 Route::patch('orderDeliver/{id}', 'OrderControllerAPI@orderDeliver');
 Route::delete('orderDelete/{id}', 'OrderControllerAPI@orderDelete');
 Route::get('orderItem/{id}', 'ItemControllerAPI@orderItem');
+Route::get('orders', 'OrderControllerAPI@index');
+Route::get('countOrdersCook/{id}', 'OrderControllerAPI@countOrdersCook');
+Route::get('countMealWaiter/{id}', 'OrderControllerAPI@countMealWaiter');
+Route::get('countOrdersWaiter/{id}', 'OrderControllerAPI@countOrdersWaiter');
+
+
 
 Route::get('mealsInfo', 'MealControllerAPI@dashInfo');
 

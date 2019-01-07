@@ -43,6 +43,11 @@ class UserControllerAPI extends Controller
         return User::findOrFail($id);
     }
 
+    public function getUsers(Request $request)
+    {
+        return UserResource::collection(User::paginate(35));
+    }
+
     public function store(Request $request)
     {
         $request->validate([

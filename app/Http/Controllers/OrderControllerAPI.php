@@ -19,13 +19,14 @@ class OrderControllerAPI extends Controller
 {
 	public function index(Request $request)
 	{
-		if($request->has('page')){
-			return OrderResource::collection(Order::paginate(10));
-		}else{
-			return OrderResource::collection(Order::all());
-		}
-	}
+		//return OrderResource::collection(Order::all()));
+		return OrderResource::collection( 
+			Order::groupBy('responsible_cook_id')
+				->select('responsible_cook_id', DB::raw('count(*) as total'))
+				->get());	
 
+			
+	}
 	public function ordersWaiter(Request $request)
 	{
 		$user =  \Auth::guard('api')->user();
@@ -41,6 +42,57 @@ class OrderControllerAPI extends Controller
 		return OrderResource::collection( Order::select()
 			->where('meal_id','=',$meal->id)
 			->get());	
+		//$orders = $meal->order;
+		//return OrderResource::collection($orders);
+		//return OrderResource::collection($orders_total[0]);
+	}
+
+	public function countOrdersCook(Request $request,$id){
+		$user = User::findOrFail($id);
+		$orders = Order::select()
+			->where('responsible_cook_id','=',$user->id)
+			->get();
+		$numero_total_Orders = $orders->count();
+		$total_dias = (Order::groupBy('start')
+				->select('start', DB::raw('count(*) as total'))
+				->where('responsible_cook_id','=',$user->id)
+				->get());
+		return $numero_total_Orders/($total_dias->count());
+			//return OrderResource::collection( 
+		//$orders = $meal->order;
+		//return OrderResource::collection($orders);
+		//return OrderResource::collection($orders_total[0]);
+	}
+
+	public function countMealWaiter(Request $request,$id){
+		$user = User::findOrFail($id);
+		$meals = Meal::select()
+			->where('responsible_waiter_id','=',$user->id)
+			->get();
+		$numero_total_meals = $meals->count();
+		$total_dias = (Meal::groupBy('start')
+				->select('start', DB::raw('count(*) as total'))
+				->where('responsible_waiter_id','=',$user->id)
+				->get());
+		return $numero_total_meals/($total_dias->count());
+			//return OrderResource::collection( 
+		//$orders = $meal->order;
+		//return OrderResource::collection($orders);
+		//return OrderResource::collection($orders_total[0]);
+	}
+
+	public function countOrdersWaiter(Request $request,$id){
+		$user = User::findOrFail($id);
+		$orders = Order::select()
+			->where('responsible_cook_id','=',$user->id)
+			->get();
+		$numero_total_Orders = $orders->count();
+		$total_dias = (Order::groupBy('start')
+				->select('start', DB::raw('count(*) as total'))
+				->where('responsible_cook_id','=',$user->id)
+				->get());
+		return $numero_total_Orders/($total_dias->count());
+			//return OrderResource::collection( 
 		//$orders = $meal->order;
 		//return OrderResource::collection($orders);
 		//return OrderResource::collection($orders_total[0]);
